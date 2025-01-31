@@ -85,6 +85,10 @@ public abstract class GenericService<T, E, ID> {
         return modelMapper;
     }
 
+    public ModelMapper getNotNullModelMapper(){
+        return notNullModelMapper;
+    }
+
     protected <S> Class<S> getGenericClass(int index) {
         return getModelMapper().map(
                 ResolvableType.forClass(GenericService.class, getClass()).getGeneric(index).resolve(),

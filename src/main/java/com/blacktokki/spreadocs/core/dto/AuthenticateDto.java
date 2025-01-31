@@ -9,9 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
-public class AuthenticateDto extends BaseUserDto implements UserDetails{
-    private String password;
-
+public record AuthenticateDto(Long id, String username, String password, String name) implements BaseUserDto, UserDetails{
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();        
@@ -46,5 +44,10 @@ public class AuthenticateDto extends BaseUserDto implements UserDetails{
     @Override
     public String getPassword() {
         return this.password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.username;
     }
 }

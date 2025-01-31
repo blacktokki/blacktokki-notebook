@@ -8,14 +8,14 @@ spring:
           batch_size: '1000'
         order_inserts: 'true'
         format_sql: 'true'
-    application-name: spreadocs
+      application-name: spreadocs
     database: mysql
     hibernate:
       ddl-auto: none
     show-sql: 'true'
   flyway:
     enabled: 'false'
-    locations: classpath:db/migration/${spring.application.application-name}
+    locations: classpath:db/migration/${spring.jpa.properties.application-name}
   datasource:
     hikari:
       catalog: db1_${spring.jpa.properties.application-name}
