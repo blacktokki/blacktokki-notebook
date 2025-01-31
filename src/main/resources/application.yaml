@@ -1,0 +1,43 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        default_batch_fetch_size: '1000'
+        order_updates: 'true'
+        jdbc:
+          batch_size: '1000'
+        order_inserts: 'true'
+        format_sql: 'true'
+    application-name: spreadocs
+    database: mysql
+    hibernate:
+      ddl-auto: none
+    show-sql: 'true'
+  flyway:
+    enabled: 'false'
+    locations: classpath:db/migration/${spring.application.application-name}
+  datasource:
+    hikari:
+      catalog: db1_${spring.jpa.properties.application-name}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  config:
+    import: classpath:datasource.yaml, classpath:secret.yaml
+  application:
+    name: spreadocs
+  output:
+    ansi:
+      enabled: always
+  devtools:
+    restart:
+      additional-exclude: db/migration/**
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: 'true'
+    fetch-registry: 'true'
+  # cloud.gcp.storage.credentials.location: classpath:virtual-metrics-355712-e207b739a975.json
+server.port: 8081
