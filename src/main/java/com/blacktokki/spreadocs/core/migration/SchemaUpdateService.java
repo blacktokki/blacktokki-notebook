@@ -3,8 +3,7 @@ package com.blacktokki.spreadocs.core.migration;
 import java.io.File;
 import java.io.StringWriter;
 import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -17,7 +16,6 @@ import javax.sql.DataSource;
 import org.flywaydb.core.Flyway;
 import org.hibernate.boot.Metadata;
 import org.hibernate.cfg.AvailableSettings;
-import org.hibernate.tool.schema.SourceType;
 import org.hibernate.tool.schema.TargetType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,12 +28,10 @@ import org.hibernate.service.spi.SessionFactoryServiceRegistry;
 import org.hibernate.tool.schema.internal.ExceptionHandlerCollectingImpl;
 import org.hibernate.tool.schema.spi.ContributableMatcher;
 import org.hibernate.tool.schema.spi.ExecutionOptions;
-import org.hibernate.tool.schema.spi.SchemaCreator;
 import org.hibernate.tool.schema.spi.SchemaManagementTool;
 import org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator;
-import org.hibernate.tool.schema.spi.ScriptSourceInput;
+import org.hibernate.tool.schema.spi.SchemaMigrator;
 import org.hibernate.tool.schema.spi.ScriptTargetOutput;
-import org.hibernate.tool.schema.spi.SourceDescriptor;
 import org.hibernate.tool.schema.spi.TargetDescriptor;
 import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToWriter;
 
@@ -46,8 +42,6 @@ public class SchemaUpdateService implements InitializingBean {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
 
     private static final Logger log = LoggerFactory.getLogger(SchemaUpdateService.class);
-
-    private static final String tempFileName =  Paths.get(System.getProperty("java.io.tmpdir"), "migrate.sql").toString();
 
     private static final String userDir = System.getProperty("user.dir") + "/";
 
@@ -71,19 +65,7 @@ public class SchemaUpdateService implements InitializingBean {
         Map<String, Object> config = new HashMap<>();
         config.put(AvailableSettings.HBM2DDL_DELIMITER, ";");
         config.put(AvailableSettings.FORMAT_SQL, true);
-        config.put(AvailableSettings.JAKARTA_HBM2DDL_CREATE_SCRIPT_SOURCE, tempFileName);
         StringWriter writer = new StringWriter();
-        SourceDescriptor source = new SourceDescriptor() {
-                @Override
-                public SourceType getSourceType() {
-                    return SourceType.METADATA;
-                }
-
-                @Override
-                public ScriptSourceInput getScriptSourceInput() {
-                    return null;
-                }
-            };
         TargetDescriptor target = new TargetDescriptor() {
             @Override
             public EnumSet<TargetType> getTargetTypes() {
@@ -106,16 +88,14 @@ public class SchemaUpdateService implements InitializingBean {
                     config,
                     exceptionHandler);
 
-        SchemaCreator schemaCreator = schemaManagementTool.getSchemaCreator(config);
+        SchemaMigrator migrator = schemaManagementTool.getSchemaMigrator(config);
 
         log.warn("Starting SCHEMA MIGRATION lookup------------------------------------------------------------------");
         // log.warn("please add the following SQL code (if any) to a flyway migration");
         String schemaName = "db1_" + applicationName;
         log.warn("Working on schema: " +  schemaName);
-        schemaCreator.doCreation(metadata, executionOptions, ContributableMatcher.ALL, source, target);
-        File tempFile = new File(tempFileName);
-        String path = userDir + "src/main/resources/migration/";
-        System.out.println(path);
+        migrator.doMigration(metadata, executionOptions, ContributableMatcher.ALL, target);
+        String path = userDir + "src/main/resources/db/migration/";
         File[] fileList = new File(path).listFiles();
         Flyway flyway = Flyway.configure().dataSource(dataSource).schemas(schemaName).load();
         int sqlFileCount = fileList.length;
@@ -130,16 +110,16 @@ public class SchemaUpdateService implements InitializingBean {
             fileName = fileList[migrationCount].getAbsolutePath();
         }
         File file = new File(fileName);
-        if (tempFile.exists() && tempFile.length() != 0) {  // migrations present.
+        String sql = writer.toString();
+        if (sql.length() != 0) {  // migrations present.
             log.warn("Migrations also written to: " + fileName);
-            Files.copy(tempFile.toPath(),  file.toPath(), StandardCopyOption.REPLACE_EXISTING); 
-        } else if (tempFile.exists()) {  // delete empty files
+            Files.writeString( file.toPath(), sql, StandardOpenOption.CREATE);
+        } else {  // delete empty files
             log.warn("No migrations");
             if(file.exists()){
-                Files.copy(tempFile.toPath(),  file.toPath(), StandardCopyOption.REPLACE_EXISTING); 
+                Files.writeString(file.toPath(), sql, StandardOpenOption.CREATE);
             }
         }
-        tempFile.delete();
         log.warn("END OF SCHEMA MIGRATION lookup--------------------------------------------------------------------");
     }
 }

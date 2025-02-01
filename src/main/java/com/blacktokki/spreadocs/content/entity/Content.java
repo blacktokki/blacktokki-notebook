@@ -1,0 +1,53 @@
+package com.blacktokki.spreadocs.content.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+import java.time.ZonedDateTime;
+
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.blacktokki.spreadocs.account.entity.User;
+
+@Entity
+@Table(name="content")
+public class Content {
+    @Id
+    @Column(name = "co_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @ManyToOne
+    @JoinColumn(name = "us_id", updatable = false, insertable = false)
+    private User user;
+
+    @Column(name = "us_id", nullable = true)
+    private Long userId;
+
+    @Column(name = "co_parent_id", nullable = true)
+    private Long parentId;
+
+    @Convert(converter = EnumConverter.class)
+    @Column(name = "co_type", nullable= false)
+    private ContentType type;
+ 
+    @Column(name = "co_input", nullable = true)
+    private String input;
+
+    @Column(name = "co_title", nullable = true)
+    private String title;
+
+    @Column(name = "co_content", nullable = true)
+    private String content;
+
+    @UpdateTimestamp
+    @Column(name = "dt_updated")
+    private ZonedDateTime updated;
+}

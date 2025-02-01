@@ -11,7 +11,6 @@ import com.blacktokki.spreadocs.core.dto.AuthenticateDto;
 import com.blacktokki.spreadocs.core.dto.BaseUserDto;
 import com.blacktokki.spreadocs.core.service.restful.RestfulService;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -35,11 +34,5 @@ public class UserService extends RestfulService<UserDto, User, Long> implements 
             return builder.equal(root.get(key), username);
         }
         return builder.equal(root.get(key), value);
-    }
-
-    @Override
-    public ModelMapper getNotNullModelMapper() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getNotNullModelMapper'");
     }
 }
