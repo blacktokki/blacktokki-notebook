@@ -21,7 +21,7 @@ public class UserService extends RestfulService<UserDto, User, Long> implements 
     public AuthenticateDto loadUserByUsername(String username){
         UserQueryParam userSpecification = new UserQueryParam(null, username, null);
         User user = getExecutor().findOne(toSpecification(userSpecification)).orElse(null);
-        return user != null ? getModelMapper().map(user, AuthenticateDto.class) : null;
+        return user != null ? new AuthenticateDto(user.getId(), user.getUsername(), user.getPassword(), user.getName()) : null;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class UserService extends RestfulService<UserDto, User, Long> implements 
         }
         if (key.equals("self") && (Boolean)value){
             String username = ((BaseUserDto)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).username();
-            return builder.equal(root.get(key), username);
+            return builder.equal(root.get("username"), username);
         }
         return builder.equal(root.get(key), value);
     }

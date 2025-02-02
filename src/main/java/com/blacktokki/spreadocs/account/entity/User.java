@@ -24,4 +24,20 @@ public class User {
     
     @Column(name = "us_password")
     private String password;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }
