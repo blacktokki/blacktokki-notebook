@@ -35,4 +35,14 @@ public class UserService extends RestfulService<UserDto, User, Long> implements 
         }
         return builder.equal(root.get(key), value);
     }
+
+    @Override
+    public UserDto toDto(User e) {
+        throw new UnsupportedOperationException("Unimplemented method 'toDto'");
+    }
+
+    @Override
+    public User toEntity(UserDto b) {
+        throw new UnsupportedOperationException("Unimplemented method 'toEntity'");
+    }
 }

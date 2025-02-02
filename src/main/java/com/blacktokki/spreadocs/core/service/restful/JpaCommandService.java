@@ -2,20 +2,19 @@ package com.blacktokki.spreadocs.core.service.restful;
 
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface JpaCommandService<T, E, ID> extends CommandService<T, ID> {
     public JpaRepository<E, ID> getRepository();
 
-    public ModelMapper getNotNullModelMapper();
-
     public T toDto(E e);
 
     public E toEntity(T t);
 
     public void setEntityId(E entity, ID id);
+
+    public void setEntityNotNullFields(E oldEntity, E newEntity);
 
     @Override
     @Transactional
@@ -35,9 +34,10 @@ public interface JpaCommandService<T, E, ID> extends CommandService<T, ID> {
     @Override
     @Transactional
     default T bulkUpdateFields(List<ID> ids, T updated) {
+        E newEntity = toEntity(updated);
         List<E> entityList = getRepository().findAllById(ids);
         for (E entity: entityList){
-            getNotNullModelMapper().map(updated, entity);
+            setEntityNotNullFields(entity, newEntity);
         }
         getRepository().saveAll(entityList);
         return updated;
@@ -48,5 +48,4 @@ public interface JpaCommandService<T, E, ID> extends CommandService<T, ID> {
     default void bulkDelete(List<ID> ids) {
         getRepository().deleteAllByIdInBatch(ids);
     }
-
 }

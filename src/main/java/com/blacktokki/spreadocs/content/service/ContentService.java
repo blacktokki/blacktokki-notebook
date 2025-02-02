@@ -25,4 +25,14 @@ public class ContentService extends RestfulService<ContentDto, Content, Long>{
         }
         return builder.equal(root.get(key), value);
     }
+
+    @Override
+    public ContentDto toDto(Content e) {
+        return new ContentDto(e.getId(), e.getUserId(), e.getParentId(), e.getType(), e.getInput(), e.getTitle(), e.getContent(), e.getUpdated());
+    }
+
+    @Override
+    public Content toEntity(ContentDto t) {
+        return Content.builder().parentId(t.parentId()).type(t.type()).input(t.input()).userId(t.userId()).build();
+    }
 }
