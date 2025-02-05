@@ -16,7 +16,7 @@ USER=$(getProperty "spring.datasource.user")
 PASSWORD=$(getProperty "spring.datasource.password")
 URL=$(getProperty "spring.datasource.url")
 
-rm -rf ./build/resources/main/migration
-cp -r ./src/main/resources/migration ./build/resources/main
+rm -rf ./build/resources/main/db
+cp -r ./src/main/resources/db ./build/resources/main
 ./gradlew flyway$1 "-i" "-Dflyway.user=$USER" "-Dflyway.password=$PASSWORD" "-Dflyway.url=$URL" "-Dflyway.schemas=db1_spreadocs"
 # read -p "Press enter to continue"

@@ -46,18 +46,24 @@ public class Content {
     @Column(name = "co_type", nullable= false)
     private ContentType type;
  
+    @Column(name = "co_order", nullable= false)
+    private Integer order;
+
     @Column(name = "co_input", nullable = true)
     private String input;
 
     @Column(name = "co_title", nullable = true)
     private String title;
 
-    @Column(name = "co_content", nullable = true)
-    private String content;
+    @Column(name = "co_description", nullable = true)
+    private String description;
 
     @UpdateTimestamp
-    @Column(name = "dt_updated")
+    @Column(name = "co_updated")
     private ZonedDateTime updated;
+
+    @Column(name = "co_deleted")
+    private ZonedDateTime deleted;
 
     public void updateInput(String input){
         this.input = input;
