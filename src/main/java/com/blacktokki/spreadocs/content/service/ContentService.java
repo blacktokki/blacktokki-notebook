@@ -11,6 +11,8 @@ import com.blacktokki.spreadocs.content.entity.ContentType;
 import com.blacktokki.spreadocs.content.repository.ContentRepository;
 import com.blacktokki.spreadocs.core.dto.BaseUserDto;
 import com.blacktokki.spreadocs.core.service.restful.RestfulService;
+import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.io.FeedException;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -44,7 +46,19 @@ public class ContentService extends RestfulService<ContentDto, Content, Long>{
 
     @Override
     public Content toEntity(ContentDto t) {
-        String title = t.type().equals(ContentType.NOTE)?t.input():null;
+        String title = t.input();
+        String description = t.description();
+        boolean titleExist = title != null && !title.isBlank();
+        boolean descriptionExist = description != null && !description.isBlank();
+        if ((titleExist || descriptionExist) && ContentType.FEED.equals(t.type())){
+            try {
+                SyndFeed feed = FeedService.getFeed(t.input());
+                title = feed.getTitle();
+                description = feed.getDescription();
+            } catch (FeedException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return Content.builder().userId(t.userId()).parentId(t.parentId()).type(t.type()).order(t.order()).input(t.input()).title(title).description(t.description()).build();
     }
 
@@ -54,7 +68,9 @@ public class ContentService extends RestfulService<ContentDto, Content, Long>{
         Content newEntity = Content.builder().deleted(ZonedDateTime.now()).build();
         List<Content> entityList = getRepository().findAllById(ids);
         for (Content entity: entityList){
+            System.out.println("@@");
             setEntityNotNullFields(entity, newEntity);
+            System.out.println(entity);
         }
         getRepository().saveAll(entityList); 
     }

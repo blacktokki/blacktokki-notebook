@@ -44,7 +44,7 @@ public abstract class RestfulController<T, Q, ID> {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<T> getOne(@PathVariable ID id){
+    public ResponseEntity<T> getOne(@PathVariable("id") ID id){
         return getQueryService().getOptional(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
@@ -54,7 +54,7 @@ public abstract class RestfulController<T, Q, ID> {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<T> update(@PathVariable ID id, @RequestBody T updated){
+    public ResponseEntity<T> update(@PathVariable("id") ID id, @RequestBody T updated){
         return ResponseEntity.ok(getCommandService().update(id, updated));
     }
 
@@ -64,7 +64,7 @@ public abstract class RestfulController<T, Q, ID> {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable ID id){
+    public ResponseEntity<String> delete(@PathVariable("id") ID id){
         getCommandService().bulkDelete(Arrays.asList(id));
         return ResponseEntity.ok("Ok");
     }

@@ -69,8 +69,4 @@ public abstract class GenericService<T, E, ID> {
     public JpaSpecificationExecutor<E> getExecutor() {
         return executor;
     }
-
-    abstract public T toDto(E t);
-
-    abstract public E toEntity(T b);
 }
