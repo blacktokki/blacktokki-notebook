@@ -41,16 +41,14 @@ public class ContentService extends RestfulService<ContentDto, Content, Long>{
 
     @Override
     public ContentDto toDto(Content e) {
-        return new ContentDto(e.getId(), e.getUserId(), e.getParentId(), e.getType(), e.getOrder(), e.getInput(), e.getTitle(), e.getDescription(), e.getUpdated());
+        return new ContentDto(e.getId(), e.getUserId(), e.getParentId(), e.getType(), e.getOrder(), e.getInput(), e.getTitle(), e.getDescription(), e.getCover(), e.getUpdated());
     }
 
     @Override
     public Content toEntity(ContentDto t) {
         String title = t.input();
         String description = t.description();
-        boolean titleExist = title != null && !title.isBlank();
-        boolean descriptionExist = description != null && !description.isBlank();
-        if ((titleExist || descriptionExist) && ContentType.FEED.equals(t.type())){
+        if (ContentType.FEED.equals(t.type()) && title != null && !title.isBlank()){
             try {
                 SyndFeed feed = FeedService.getFeed(t.input());
                 title = feed.getTitle();
@@ -59,7 +57,7 @@ public class ContentService extends RestfulService<ContentDto, Content, Long>{
                 throw new RuntimeException(e);
             }
         }
-        return Content.builder().userId(t.userId()).parentId(t.parentId()).type(t.type()).order(t.order()).input(t.input()).title(title).description(t.description()).build();
+        return Content.builder().userId(t.userId()).parentId(t.parentId()).type(t.type()).order(t.order()).input(t.input()).title(title).description(description).build();
     }
 
     @Override

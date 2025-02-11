@@ -55,8 +55,11 @@ public class Content {
     @Column(name = "co_title", nullable = true)
     private String title;
 
-    @Column(name = "co_description", nullable = true)
+    @Column(name = "co_description", nullable = true, columnDefinition = "LONGTEXT")
     private String description;
+
+    @Column(name = "co_cover", nullable = true)
+    private String cover;
 
     @Column(name = "co_updated")
     private ZonedDateTime updated;

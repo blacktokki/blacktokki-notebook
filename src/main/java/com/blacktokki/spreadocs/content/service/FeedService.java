@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Comparator;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.opengraph.OpenGraph;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,10 +58,18 @@ public class FeedService {
             ZonedDateTime updated = lastContent.map(Content::getUpdated).orElse(Instant.ofEpochMilli(Long.MIN_VALUE).atZone(ZoneId.systemDefault()));
             List<Content> feeds;
             try {
-                feeds = getFeed(content.input()).getEntries().stream().map(entry->{
+                feeds = getFeed(content.input()).getEntries().stream().sorted(Comparator.comparing(e->e.getPublishedDate())).map(entry->{
+                        Optional<OpenGraph> opengraph = OpenGraphService.ofNullable(entry.getUri(), true);
+                        String description = Optional.ofNullable(entry.getDescription()).map(v->v.getValue()).orElse(null);
+                        String cover = null;
+                        if (opengraph.isPresent()){
+                            description = opengraph.get().getContent("description");
+                            cover = opengraph.get().getContent("image");
+                        }
                         return Content.builder()
                         .title(entry.getTitle())
-                        .description(Optional.ofNullable(entry.getDescription()).map(v->v.getValue()).orElse(null))
+                        .description(description)
+                        .cover(cover)
                         .input(entry.getUri())
                         .order(i.incrementAndGet())
                         .userId(content.userId())
@@ -68,17 +78,11 @@ public class FeedService {
                         .updated(ZonedDateTime.ofInstant(entry.getPublishedDate().toInstant(), ZoneId.systemDefault()))
                         .build();
                     }).filter(v->{
-                        System.out.println("@");
-                        System.out.println(v.getUpdated());
-                        System.out.println(updated);
-                        System.out.println(v.getUpdated().isAfter(updated));
                         return v.getUpdated().isAfter(updated);
                     }).toList();
             } catch (FeedException e) {
                 continue;
             }
-            System.out.println("@@@");
-            System.out.println(feeds.size());
             contentRepository.saveAll(feeds);
             if (feeds.size()> 0){
                 feedIds.add(content.id());
