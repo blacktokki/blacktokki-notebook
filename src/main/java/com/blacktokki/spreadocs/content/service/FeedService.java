@@ -7,6 +7,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Comparator;
@@ -22,6 +23,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.blacktokki.spreadocs.content.dto.ContentDto;
+import com.blacktokki.spreadocs.content.dto.FeedPreviewDto;
+import com.blacktokki.spreadocs.content.dto.PreviewRequestDto;
 import com.blacktokki.spreadocs.content.dto.PullFeedDto;
 import com.blacktokki.spreadocs.content.entity.Content;
 import com.blacktokki.spreadocs.content.entity.ContentType;
@@ -32,11 +35,11 @@ import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 
 @Service
-public class FeedService {
+public class FeedService implements PreviewService<PreviewRequestDto, FeedPreviewDto> {
     @Autowired
     private ContentRepository contentRepository;
 
-    static public SyndFeed getFeed(String url) throws FeedException{
+    private SyndFeed getFeed(String url) throws FeedException{
         try (CloseableHttpClient client = HttpClients.createMinimal()) {
             HttpUriRequest request = new HttpGet(url);
             try (CloseableHttpResponse response = client.execute(request);
@@ -49,6 +52,16 @@ public class FeedService {
         }
     }
 
+    @Override
+    public FeedPreviewDto preview(PreviewRequestDto dto) {
+        try {
+            SyndFeed feed = getFeed(dto.query());
+            return new FeedPreviewDto(feed.getTitle(), feed.getDescription());
+        } catch (FeedException e) {
+            throw new RuntimeException(e);
+        }
+    };
+
     @Transactional
     public PullFeedDto pull(List<ContentDto> contents) {
         List<Long> feedIds = new ArrayList<>();
@@ -59,17 +72,19 @@ public class FeedService {
             List<Content> feeds;
             try {
                 feeds = getFeed(content.input()).getEntries().stream().sorted(Comparator.comparing(e->e.getPublishedDate())).map(entry->{
-                        Optional<OpenGraph> opengraph = OpenGraphService.ofNullable(entry.getUri(), true);
-                        String description = Optional.ofNullable(entry.getDescription()).map(v->v.getValue()).orElse(null);
-                        String cover = null;
-                        if (opengraph.isPresent()){
-                            description = opengraph.get().getContent("description");
-                            cover = opengraph.get().getContent("image");
-                        }
-                        return Content.builder()
+                    ZonedDateTime entryUpdated = ZonedDateTime.ofInstant(entry.getPublishedDate().toInstant(), ZoneId.systemDefault());
+                    if (!entryUpdated.isAfter(updated)){
+                        return null;
+                    }
+                    String description = Optional.ofNullable(entry.getDescription()).map(v->v.getValue()).orElse(null);
+                    Optional<OpenGraph> opengraph = OpenGraphService.ofNullable(entry.getUri(), true);
+                    if (opengraph.isPresent()){
+                        description = opengraph.get().getContent("description");
+                        // cover = opengraph.get().getContent("image");
+                    }
+                    return Content.builder()
                         .title(entry.getTitle())
                         .description(description)
-                        .cover(cover)
                         .input(entry.getUri())
                         .order(i.incrementAndGet())
                         .userId(content.userId())
@@ -77,9 +92,7 @@ public class FeedService {
                         .type(ContentType.FEEDCONTENT)
                         .updated(ZonedDateTime.ofInstant(entry.getPublishedDate().toInstant(), ZoneId.systemDefault()))
                         .build();
-                    }).filter(v->{
-                        return v.getUpdated().isAfter(updated);
-                    }).toList();
+                    }).filter(Objects::nonNull).toList();
             } catch (FeedException e) {
                 continue;
             }
@@ -89,5 +102,5 @@ public class FeedService {
             }
         }
         return new PullFeedDto(feedIds);
-    };
+    }
 }

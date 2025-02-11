@@ -7,12 +7,9 @@ import jakarta.persistence.criteria.Root;
 import com.blacktokki.spreadocs.content.dto.ContentDto;
 import com.blacktokki.spreadocs.content.dto.ContentOrderDto;
 import com.blacktokki.spreadocs.content.entity.Content;
-import com.blacktokki.spreadocs.content.entity.ContentType;
 import com.blacktokki.spreadocs.content.repository.ContentRepository;
 import com.blacktokki.spreadocs.core.dto.BaseUserDto;
 import com.blacktokki.spreadocs.core.service.restful.RestfulService;
-import com.rometools.rome.feed.synd.SyndFeed;
-import com.rometools.rome.io.FeedException;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -22,7 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ContentService extends RestfulService<ContentDto, Content, Long>{
+public class ContentService extends RestfulService<ContentDto, Content, Long> {
     @Override
     public Predicate toPredicate(String key, Object value, Root<Content> root, CriteriaBuilder builder){
         if(key.equals("withDeleted")){
@@ -41,23 +38,12 @@ public class ContentService extends RestfulService<ContentDto, Content, Long>{
 
     @Override
     public ContentDto toDto(Content e) {
-        return new ContentDto(e.getId(), e.getUserId(), e.getParentId(), e.getType(), e.getOrder(), e.getInput(), e.getTitle(), e.getDescription(), e.getCover(), e.getUpdated());
+        return new ContentDto(e.getId(), e.getUserId(), e.getParentId(), e.getType(), e.getOrder(), e.getInput(), e.getTitle(), e.getDescription(), e.getUpdated());
     }
 
     @Override
     public Content toEntity(ContentDto t) {
-        String title = t.input();
-        String description = t.description();
-        if (ContentType.FEED.equals(t.type()) && title != null && !title.isBlank()){
-            try {
-                SyndFeed feed = FeedService.getFeed(t.input());
-                title = feed.getTitle();
-                description = feed.getDescription();
-            } catch (FeedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return Content.builder().userId(t.userId()).parentId(t.parentId()).type(t.type()).order(t.order()).input(t.input()).title(title).description(description).build();
+        return Content.builder().userId(t.userId()).parentId(t.parentId()).type(t.type()).order(t.order()).input(t.input()).title(t.title()).description(t.description()).build();
     }
 
     @Override
@@ -66,7 +52,6 @@ public class ContentService extends RestfulService<ContentDto, Content, Long>{
         Content newEntity = Content.builder().deleted(ZonedDateTime.now()).build();
         List<Content> entityList = getRepository().findAllById(ids);
         for (Content entity: entityList){
-            System.out.println("@@");
             setEntityNotNullFields(entity, newEntity);
             System.out.println(entity);
         }

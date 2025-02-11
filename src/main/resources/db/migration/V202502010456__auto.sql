@@ -1,7 +1,6 @@
 
     create table content (
         co_id bigint not null auto_increment,
-        co_cover varchar(255),
         co_deleted datetime(6),
         co_description LONGTEXT,
         co_input varchar(255),
