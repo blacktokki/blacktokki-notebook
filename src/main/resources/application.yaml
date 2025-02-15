@@ -8,7 +8,7 @@ spring:
           batch_size: '1000'
         order_inserts: 'true'
         format_sql: 'true'
-      application-name: spreadocs
+      application-name: feedynote
     database: mysql
     hibernate:
       ddl-auto: none
@@ -23,7 +23,7 @@ spring:
   config:
     import: classpath:datasource.yaml, classpath:secret.yaml
   application:
-    name: spreadocs
+    name: feedynote
   output:
     ansi:
       enabled: always

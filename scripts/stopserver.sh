@@ -5,7 +5,7 @@
 # bash ../scripts/runserver.sh ([param]...)
 # * param: service name (vscode)
 
-var=${1:-spreadocs}
+var=${1:-feedynote}
 if [ $var == "vscode" ]
 then
   PID=`ps -ef | grep .vscode-server/extensions | grep redhat.java | awk '{print $2}'`

@@ -18,5 +18,5 @@ URL=$(getProperty "spring.datasource.url")
 
 rm -rf ./build/resources/main/db
 cp -r ./src/main/resources/db ./build/resources/main
-./gradlew flyway$1 "-i" "-Dflyway.user=$USER" "-Dflyway.password=$PASSWORD" "-Dflyway.url=$URL" "-Dflyway.schemas=db1_spreadocs"
+./gradlew flyway$1 "-i" "-Dflyway.user=$USER" "-Dflyway.password=$PASSWORD" "-Dflyway.url=$URL" "-Dflyway.schemas=db1_feedynote"
 # read -p "Press enter to continue"

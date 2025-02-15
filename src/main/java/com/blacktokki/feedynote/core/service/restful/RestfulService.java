@@ -1,0 +1,7 @@
+package com.blacktokki.feedynote.core.service.restful;
+
+
+
+
+public abstract class RestfulService<T, E, ID> extends GenericService<T, E, ID> implements JpaQueryService<T, E, ID>,  JpaCommandService<T, E, ID>{
+}

@@ -3,7 +3,7 @@
 # Usage:
 # bash scripts/runserver.sh
 
-var=spreadocs
+var=feedynote
 
 # kill -9 `ps -ef | grep .vscode-server/extensions | grep redhat.java | awk '{print $2}'`
 PID=`ps -ef | grep java | grep war | grep $var | awk '{print $2}'`

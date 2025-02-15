@@ -1,6 +1,6 @@
 package org.hibernate.integrator.api.integrator;
 
-import com.blacktokki.spreadocs.core.migration.HibernateInfoHolder;
+import com.blacktokki.feedynote.core.migration.HibernateInfoHolder;
 
 import org.hibernate.boot.Metadata;
 import org.hibernate.engine.spi.SessionFactoryImplementor;

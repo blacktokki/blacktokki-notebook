@@ -15,7 +15,7 @@ create user '$1'@'%' identified by '$2';
 GRANT ALL PRIVILEGES ON *.* TO '$1'@'%';
 flush privileges;
 SET character_set_server = 'utf8mb4';
-create database db1_spreadocs;
+create database db1_feedynote;
 "
 
 sudo apt-get --assume-yes install openjdk-17-jdk
