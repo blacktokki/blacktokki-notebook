@@ -1,0 +1,1 @@
+editorConfig={plugins:"image link charmap advlist lists paste hr noneditable",toolbar:"fontsizeselect | bold italic underline strikethrough | undo redo | alignleft aligncenter alignright | bullist numlist | hr link",setup:e=>{}},"undefined"!==typeof module&&(module.exports=editorConfig);
