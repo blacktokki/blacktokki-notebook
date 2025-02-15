@@ -56,6 +56,7 @@
     "tinymce/plugins/autoresize/plugin.min.js": "/feedynote/tinymce/plugins/autoresize/plugin.min.js",
     "favicon-32.png": "/feedynote/favicon-32.png",
     "tinymce/plugins/preview/plugin.min.js": "/feedynote/tinymce/plugins/preview/plugin.min.js",
+    "404.html": "/feedynote/404.html",
     "tinymce/plugins/tabfocus/plugin.min.js": "/feedynote/tinymce/plugins/tabfocus/plugin.min.js",
     "tinymce/plugins/noneditable/plugin.min.js": "/feedynote/tinymce/plugins/noneditable/plugin.min.js",
     "tinymce/plugins/save/plugin.min.js": "/feedynote/tinymce/plugins/save/plugin.min.js",
