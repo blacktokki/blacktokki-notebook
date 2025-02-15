@@ -58,6 +58,9 @@ public class Content {
     @Column(name = "co_description", nullable = true, columnDefinition = "LONGTEXT")
     private String description;
 
+    @Column(name = "co_image_url", nullable = true)
+    private String imageUrl;
+
     @Column(name = "co_updated")
     private ZonedDateTime updated;
 

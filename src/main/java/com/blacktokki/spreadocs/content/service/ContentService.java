@@ -29,21 +29,24 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
         if (value == null){
             return null;
         }
-        if (key.equals("self") && (Boolean)value){
-            Long userId = ((BaseUserDto)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).id();
-            return builder.equal(root.get("userId"), userId);
+        if (key.equals("self")){
+            if ((Boolean)value){
+                Long userId = ((BaseUserDto)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).id();
+                return builder.equal(root.get("userId"), userId);
+            }
+            return null;
         }
         return builder.equal(root.get(key), value);
     }
 
     @Override
     public ContentDto toDto(Content e) {
-        return new ContentDto(e.getId(), e.getUserId(), e.getParentId(), e.getType(), e.getOrder(), e.getInput(), e.getTitle(), e.getDescription(), e.getUpdated());
+        return new ContentDto(e.getId(), e.getUserId(), e.getParentId(), e.getType(), e.getOrder(), e.getInput(), e.getTitle(), e.getDescription(), e.getImageUrl(), e.getUpdated());
     }
 
     @Override
     public Content toEntity(ContentDto t) {
-        return Content.builder().userId(t.userId()).parentId(t.parentId()).type(t.type()).order(t.order()).input(t.input()).title(t.title()).description(t.description()).build();
+        return Content.builder().userId(t.userId()).parentId(t.parentId()).type(t.type()).order(t.order()).input(t.input()).title(t.title()).description(t.description()).imageUrl(t.imageUrl()).build();
     }
 
     @Override
