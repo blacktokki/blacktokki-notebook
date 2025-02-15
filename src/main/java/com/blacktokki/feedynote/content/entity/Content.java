@@ -49,16 +49,16 @@ public class Content {
     @Column(name = "co_order", nullable= false)
     private Integer order;
 
-    @Column(name = "co_input", nullable = true)
+    @Column(name = "co_input", nullable = true, columnDefinition = "TEXT")
     private String input;
 
-    @Column(name = "co_title", nullable = true)
+    @Column(name = "co_title", nullable = true, columnDefinition = "TEXT")
     private String title;
 
-    @Column(name = "co_description", nullable = true, columnDefinition = "LONGTEXT")
+    @Column(name = "co_description", nullable = true, columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "co_image_url", nullable = true)
+    @Column(name = "co_image_url", nullable = true, columnDefinition = "TEXT")
     private String imageUrl;
 
     @Column(name = "co_updated")
