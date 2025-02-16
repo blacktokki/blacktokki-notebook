@@ -6,6 +6,7 @@ import jakarta.persistence.criteria.Root;
 
 import com.blacktokki.feedynote.content.dto.ContentDto;
 import com.blacktokki.feedynote.content.dto.ContentOrderDto;
+import com.blacktokki.feedynote.content.dto.ContentQueryParam;
 import com.blacktokki.feedynote.content.entity.Content;
 import com.blacktokki.feedynote.content.repository.ContentRepository;
 import com.blacktokki.feedynote.core.dto.BaseUserDto;
@@ -14,6 +15,7 @@ import com.blacktokki.feedynote.core.service.restful.RestfulService;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,11 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
         
         if (value == null){
             return null;
+        }
+        if (key.equals("grandParentId")){
+            ContentQueryParam queryParam = new ContentQueryParam(null, (Long)value, null, true, null);
+            List<Long> parentIds = getList(queryParam, Sort.unsorted()).stream().map(v->v.id()).toList();
+            return root.get("parentId").in(parentIds);
         }
         if (key.equals("self")){
             if ((Boolean)value){

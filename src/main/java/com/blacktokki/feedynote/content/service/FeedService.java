@@ -78,7 +78,7 @@ public class FeedService implements PreviewService<PreviewRequestDto, FeedPrevie
 
     @Transactional
     public PullFeedDto pull() {
-        ContentQueryParam queryParam = new ContentQueryParam(ContentType.FEED, null, true, null);
+        ContentQueryParam queryParam = new ContentQueryParam(ContentType.FEED, null, null, true, null);
         List<ContentDto> contents = contentService.getList(queryParam, Sort.unsorted());
         return syncFeed(contents);
     }
@@ -86,7 +86,7 @@ public class FeedService implements PreviewService<PreviewRequestDto, FeedPrevie
     @Scheduled(fixedDelay = 30 * 60000)
     public void push(){
         log.info("Feed push start");
-        ContentQueryParam queryParam = new ContentQueryParam(ContentType.FEED, null, false, null);
+        ContentQueryParam queryParam = new ContentQueryParam(ContentType.FEED, null, null, false, null);
         List<ContentDto> contents = contentService.getList(queryParam, Sort.unsorted());
         PullFeedDto dto = syncFeed(contents);
         log.info("Feed push end: " + StringUtils.join(dto.updatedFeedIds(), ','));
