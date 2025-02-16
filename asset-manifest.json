@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/feedynote/static/js/main.a7e66898.js",
-    "static/js/820.19bb5561.chunk.js": "/feedynote/static/js/820.19bb5561.chunk.js",
+    "main.js": "/feedynote/static/js/main.92b89844.js",
+    "static/js/594.2a49c276.chunk.js": "/feedynote/static/js/594.2a49c276.chunk.js",
     "static/js/184.e419c132.chunk.js": "/feedynote/static/js/184.e419c132.chunk.js",
     "static/js/462.ec8d5d5e.js": "/feedynote/static/js/462.ec8d5d5e.js",
     "static/media/MaterialCommunityIcons.ttf": "/feedynote/static/media/MaterialCommunityIcons.5d42b4e60858731e7b65.ttf",
@@ -81,13 +81,13 @@
     "tinymce/plugins/colorpicker/plugin.min.js": "/feedynote/tinymce/plugins/colorpicker/plugin.min.js",
     "tinymce/plugins/contextmenu/plugin.min.js": "/feedynote/tinymce/plugins/contextmenu/plugin.min.js",
     "tinymce/plugins/textcolor/plugin.min.js": "/feedynote/tinymce/plugins/textcolor/plugin.min.js",
-    "main.a7e66898.js.map": "/feedynote/static/js/main.a7e66898.js.map",
-    "820.19bb5561.chunk.js.map": "/feedynote/static/js/820.19bb5561.chunk.js.map",
+    "main.92b89844.js.map": "/feedynote/static/js/main.92b89844.js.map",
+    "594.2a49c276.chunk.js.map": "/feedynote/static/js/594.2a49c276.chunk.js.map",
     "184.e419c132.chunk.js.map": "/feedynote/static/js/184.e419c132.chunk.js.map",
     "462.ec8d5d5e.js.map": "/feedynote/static/js/462.ec8d5d5e.js.map"
   },
   "entrypoints": [
     "static/js/462.ec8d5d5e.js",
-    "static/js/main.a7e66898.js"
+    "static/js/main.92b89844.js"
   ]
 }
