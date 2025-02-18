@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.js": "/feedynote/static/js/main.83a719d4.js",
-    "static/js/736.8607b1f1.chunk.js": "/feedynote/static/js/736.8607b1f1.chunk.js",
-    "static/js/156.121f3ba4.chunk.js": "/feedynote/static/js/156.121f3ba4.chunk.js",
-    "static/js/462.4847e61e.js": "/feedynote/static/js/462.4847e61e.js",
+    "main.js": "/feedynote/static/js/main.df7a22c4.js",
+    "static/js/736.8f73cdfb.chunk.js": "/feedynote/static/js/736.8f73cdfb.chunk.js",
+    "static/js/156.6176718d.chunk.js": "/feedynote/static/js/156.6176718d.chunk.js",
+    "static/js/750.5090af58.js": "/feedynote/static/js/750.5090af58.js",
     "static/media/MaterialCommunityIcons.ttf": "/feedynote/static/media/MaterialCommunityIcons.5d42b4e60858731e7b65.ttf",
     "tinymce/themes/silver/theme.min.js": "/feedynote/tinymce/themes/silver/theme.min.js",
     "tinymce/plugins/emoticons/js/emojiimages.min.js": "/feedynote/tinymce/plugins/emoticons/js/emojiimages.min.js",
@@ -81,13 +81,13 @@
     "tinymce/plugins/colorpicker/plugin.min.js": "/feedynote/tinymce/plugins/colorpicker/plugin.min.js",
     "tinymce/plugins/contextmenu/plugin.min.js": "/feedynote/tinymce/plugins/contextmenu/plugin.min.js",
     "tinymce/plugins/textcolor/plugin.min.js": "/feedynote/tinymce/plugins/textcolor/plugin.min.js",
-    "main.83a719d4.js.map": "/feedynote/static/js/main.83a719d4.js.map",
-    "736.8607b1f1.chunk.js.map": "/feedynote/static/js/736.8607b1f1.chunk.js.map",
-    "156.121f3ba4.chunk.js.map": "/feedynote/static/js/156.121f3ba4.chunk.js.map",
-    "462.4847e61e.js.map": "/feedynote/static/js/462.4847e61e.js.map"
+    "main.df7a22c4.js.map": "/feedynote/static/js/main.df7a22c4.js.map",
+    "736.8f73cdfb.chunk.js.map": "/feedynote/static/js/736.8f73cdfb.chunk.js.map",
+    "156.6176718d.chunk.js.map": "/feedynote/static/js/156.6176718d.chunk.js.map",
+    "750.5090af58.js.map": "/feedynote/static/js/750.5090af58.js.map"
   },
   "entrypoints": [
-    "static/js/462.4847e61e.js",
-    "static/js/main.83a719d4.js"
+    "static/js/750.5090af58.js",
+    "static/js/main.df7a22c4.js"
   ]
 }
