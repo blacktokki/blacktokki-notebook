@@ -4,6 +4,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
+import com.blacktokki.feedynote.content.dto.ContentBulkDto;
 import com.blacktokki.feedynote.content.dto.ContentDto;
 import com.blacktokki.feedynote.content.dto.ContentOrderDto;
 import com.blacktokki.feedynote.content.dto.ContentQueryParam;
@@ -48,12 +49,12 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
 
     @Override
     public ContentDto toDto(Content e) {
-        return new ContentDto(e.getId(), e.getUserId(), e.getParentId(), e.getType(), e.getOrder(), e.getInput(), e.getTitle(), e.getDescription(), e.getImageUrl(), e.getUpdated());
+        return new ContentDto(e.getId(), e.getUserId(), e.getParentId(), e.getType(), e.getOrder(), e.getTitle(), e.getDescription(), e.getOption(), e.getUpdated());
     }
 
     @Override
     public Content toEntity(ContentDto t) {
-        return Content.builder().userId(t.userId()).parentId(t.parentId()).type(t.type()).order(t.order()).input(t.input()).title(t.title()).description(t.description()).imageUrl(t.imageUrl()).build();
+        return Content.builder().userId(t.userId()).parentId(t.parentId()).type(t.type()).order(t.order()).title(t.title()).description(t.description()).option(t.option()).build();
     }
 
     @Override
@@ -73,5 +74,15 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
         list.forEach(req -> 
             ((ContentRepository)getRepository()).updateOrder(req.id(), req.order())
         );
+    }
+
+    @Transactional
+    public List<ContentOrderDto> bulk(ContentBulkDto bulkDto) {
+        this.bulkDelete(bulkDto.deleteIds());
+        return bulkDto.created().stream().map((dto)->{
+            ContentDto result = this.create(dto);
+            return new ContentOrderDto(result.id(), result.order());
+        }).toList();
+    
     }
 }

@@ -6,7 +6,8 @@ import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
 public enum ContentType {
-    TIMELINE, FEED, FEEDCONTENT, SEARCH, SEARCHCONTENT, LIBRARY, NOTE;
+    TIMELINE, FEED, FEEDCONTENT, SEARCH, SEARCHCONTENT, LIBRARY, NOTE, 
+    NOTEV2, PAGE, EDITOR, LINK, MARKDOWN, IMPORT;
 }
 
 @Converter

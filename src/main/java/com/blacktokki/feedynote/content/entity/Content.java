@@ -49,17 +49,15 @@ public class Content {
     @Column(name = "co_order", nullable= false)
     private Integer order;
 
-    @Column(name = "co_input", nullable = true, columnDefinition = "TEXT")
-    private String input;
-
     @Column(name = "co_title", nullable = true, columnDefinition = "TEXT")
     private String title;
 
     @Column(name = "co_description", nullable = true, columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "co_image_url", nullable = true, columnDefinition = "TEXT")
-    private String imageUrl;
+    @Convert(converter = ContentOption.Converter.class)
+    @Column(name = "co_option", nullable= false)
+    private ContentOption.Map option;
 
     @Column(name = "co_updated")
     private ZonedDateTime updated;
