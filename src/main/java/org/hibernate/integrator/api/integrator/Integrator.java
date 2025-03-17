@@ -1,10 +1,10 @@
 package org.hibernate.integrator.api.integrator;
 
-import com.blacktokki.feedynote.core.migration.HibernateInfoHolder;
-
 import org.hibernate.boot.Metadata;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.service.spi.SessionFactoryServiceRegistry;
+
+import com.blacktokki.notebook.core.migration.HibernateInfoHolder;
 
 public class Integrator implements org.hibernate.integrator.spi.Integrator {
 

@@ -8,7 +8,7 @@ spring:
           batch_size: '1000'
         order_inserts: 'true'
         format_sql: 'true'
-      application-name: feedynote
+      application-name: notebook
     database: mysql
     hibernate:
       ddl-auto: none
@@ -23,7 +23,7 @@ spring:
   config:
     import: classpath:datasource.yaml, classpath:secret.yaml
   application:
-    name: feedynote
+    name: notebook
   output:
     ansi:
       enabled: always
