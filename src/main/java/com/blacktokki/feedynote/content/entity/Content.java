@@ -8,8 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +15,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.blacktokki.feedynote.account.entity.User;
 
@@ -59,17 +59,10 @@ public class Content {
     @Column(name = "co_option", nullable= false)
     private ContentOption.Map option;
 
+    @UpdateTimestamp
     @Column(name = "co_updated")
     private ZonedDateTime updated;
 
     @Column(name = "co_deleted")
     private ZonedDateTime deleted;
-
-    @PrePersist
-    @PreUpdate
-    public void preUpdate(){
-        if (!ContentType.FEEDCONTENT.equals(this.type)){
-            this.updated = ZonedDateTime.now();
-        }
-    }
 }

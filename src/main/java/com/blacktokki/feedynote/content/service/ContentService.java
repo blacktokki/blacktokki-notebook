@@ -78,7 +78,8 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
 
     @Transactional
     public List<ContentOrderDto> bulk(ContentBulkDto bulkDto) {
-        this.bulkDelete(bulkDto.deleteIds());
+        List<Long> deleteIds = this.getList(bulkDto.deleted(), Sort.unsorted()).stream().map(v->v.id()).toList();
+        this.bulkDelete(deleteIds);
         return bulkDto.created().stream().map((dto)->{
             ContentDto result = this.create(dto);
             return new ContentOrderDto(result.id(), result.order());
