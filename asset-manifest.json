@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.js": "/feedynote/static/js/main.2e125bac.js",
+    "main.js": "/feedynote/static/js/main.9cc199bc.js",
     "static/js/594.ea9ff9ca.chunk.js": "/feedynote/static/js/594.ea9ff9ca.chunk.js",
     "static/js/111.534ee3fd.chunk.js": "/feedynote/static/js/111.534ee3fd.chunk.js",
-    "static/js/66.02cd17cf.chunk.js": "/feedynote/static/js/66.02cd17cf.chunk.js",
+    "static/js/66.45b25a99.chunk.js": "/feedynote/static/js/66.45b25a99.chunk.js",
     "static/js/973.6a1d7788.chunk.js": "/feedynote/static/js/973.6a1d7788.chunk.js",
     "static/js/46.e6d84626.chunk.js": "/feedynote/static/js/46.e6d84626.chunk.js",
     "static/js/451.365c5efc.js": "/feedynote/static/js/451.365c5efc.js",
@@ -86,16 +86,16 @@
     "tinymce/plugins/colorpicker/plugin.min.js": "/feedynote/tinymce/plugins/colorpicker/plugin.min.js",
     "tinymce/plugins/contextmenu/plugin.min.js": "/feedynote/tinymce/plugins/contextmenu/plugin.min.js",
     "tinymce/plugins/textcolor/plugin.min.js": "/feedynote/tinymce/plugins/textcolor/plugin.min.js",
-    "main.2e125bac.js.map": "/feedynote/static/js/main.2e125bac.js.map",
+    "main.9cc199bc.js.map": "/feedynote/static/js/main.9cc199bc.js.map",
     "594.ea9ff9ca.chunk.js.map": "/feedynote/static/js/594.ea9ff9ca.chunk.js.map",
     "111.534ee3fd.chunk.js.map": "/feedynote/static/js/111.534ee3fd.chunk.js.map",
-    "66.02cd17cf.chunk.js.map": "/feedynote/static/js/66.02cd17cf.chunk.js.map",
+    "66.45b25a99.chunk.js.map": "/feedynote/static/js/66.45b25a99.chunk.js.map",
     "46.e6d84626.chunk.js.map": "/feedynote/static/js/46.e6d84626.chunk.js.map",
     "451.365c5efc.js.map": "/feedynote/static/js/451.365c5efc.js.map",
     "928.00a63add.chunk.js.map": "/feedynote/static/js/928.00a63add.chunk.js.map"
   },
   "entrypoints": [
     "static/js/451.365c5efc.js",
-    "static/js/main.2e125bac.js"
+    "static/js/main.9cc199bc.js"
   ]
 }
