@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  
 
 public enum ContentOption {
-    INPUT, IMAGE_URL, EXECUTION_COUNT, EXECUTION_STATUS;
+    INPUT, IMAGE_URL, EXECUTION_COUNT, EXECUTION_STATUS, INPUT_VISIBLE, OUTPUT_VISIBLE;
     static public class Map extends EnumMap<ContentOption, Object> {
         public Map() {
             super(ContentOption.class);
