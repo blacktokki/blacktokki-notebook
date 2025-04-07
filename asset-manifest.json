@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.js": "/blacktokki-notebook/static/js/main.fb89b70a.js",
+    "main.js": "/blacktokki-notebook/static/js/main.1169becd.js",
     "static/js/594.ea9ff9ca.chunk.js": "/blacktokki-notebook/static/js/594.ea9ff9ca.chunk.js",
     "static/js/111.534ee3fd.chunk.js": "/blacktokki-notebook/static/js/111.534ee3fd.chunk.js",
-    "static/js/66.fc457c7e.chunk.js": "/blacktokki-notebook/static/js/66.fc457c7e.chunk.js",
+    "static/js/66.493f899b.chunk.js": "/blacktokki-notebook/static/js/66.493f899b.chunk.js",
     "static/js/973.6a1d7788.chunk.js": "/blacktokki-notebook/static/js/973.6a1d7788.chunk.js",
     "static/js/435.47e96390.chunk.js": "/blacktokki-notebook/static/js/435.47e96390.chunk.js",
     "static/js/690.73766ab0.js": "/blacktokki-notebook/static/js/690.73766ab0.js",
@@ -62,9 +62,9 @@
     "tinymce/plugins/preview/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/preview/plugin.min.js",
     "404.html": "/blacktokki-notebook/404.html",
     "tinymce/plugins/tabfocus/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/tabfocus/plugin.min.js",
-    "favicon-32.png": "/blacktokki-notebook/favicon-32.png",
     "tinymce/plugins/noneditable/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/noneditable/plugin.min.js",
     "tinymce/plugins/save/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/save/plugin.min.js",
+    "favicon-32.png": "/blacktokki-notebook/favicon-32.png",
     "tinymce/plugins/pagebreak/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/pagebreak/plugin.min.js",
     "tinymce/skins/content/document/content.min.css": "/blacktokki-notebook/tinymce/skins/content/document/content.min.css",
     "tinymce/skins/content/dark/content.min.css": "/blacktokki-notebook/tinymce/skins/content/dark/content.min.css",
@@ -74,10 +74,10 @@
     "tinymce/plugins/visualblocks/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/visualblocks/plugin.min.js",
     "tinymce/plugins/code/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/code/plugin.min.js",
     "manifest.json": "/blacktokki-notebook/manifest.json",
+    "favicon-16.png": "/blacktokki-notebook/favicon-16.png",
     "tinymce/skins/ui/oxide-dark/skin.shadowdom.min.css": "/blacktokki-notebook/tinymce/skins/ui/oxide-dark/skin.shadowdom.min.css",
     "tinymce/skins/ui/oxide/skin.shadowdom.min.css": "/blacktokki-notebook/tinymce/skins/ui/oxide/skin.shadowdom.min.css",
     "tinymce/plugins/print/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/print/plugin.min.js",
-    "favicon-16.png": "/blacktokki-notebook/favicon-16.png",
     "tinymce/plugins/hr/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/hr/plugin.min.js",
     "tinymce/skins/ui/oxide-dark/content.mobile.min.css": "/blacktokki-notebook/tinymce/skins/ui/oxide-dark/content.mobile.min.css",
     "tinymce/skins/ui/oxide/content.mobile.min.css": "/blacktokki-notebook/tinymce/skins/ui/oxide/content.mobile.min.css",
@@ -86,16 +86,16 @@
     "tinymce/plugins/colorpicker/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/colorpicker/plugin.min.js",
     "tinymce/plugins/contextmenu/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/contextmenu/plugin.min.js",
     "tinymce/plugins/textcolor/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/textcolor/plugin.min.js",
-    "main.fb89b70a.js.map": "/blacktokki-notebook/static/js/main.fb89b70a.js.map",
+    "main.1169becd.js.map": "/blacktokki-notebook/static/js/main.1169becd.js.map",
     "594.ea9ff9ca.chunk.js.map": "/blacktokki-notebook/static/js/594.ea9ff9ca.chunk.js.map",
     "111.534ee3fd.chunk.js.map": "/blacktokki-notebook/static/js/111.534ee3fd.chunk.js.map",
-    "66.fc457c7e.chunk.js.map": "/blacktokki-notebook/static/js/66.fc457c7e.chunk.js.map",
+    "66.493f899b.chunk.js.map": "/blacktokki-notebook/static/js/66.493f899b.chunk.js.map",
     "435.47e96390.chunk.js.map": "/blacktokki-notebook/static/js/435.47e96390.chunk.js.map",
     "690.73766ab0.js.map": "/blacktokki-notebook/static/js/690.73766ab0.js.map",
     "928.5d2db063.chunk.js.map": "/blacktokki-notebook/static/js/928.5d2db063.chunk.js.map"
   },
   "entrypoints": [
     "static/js/690.73766ab0.js",
-    "static/js/main.fb89b70a.js"
+    "static/js/main.1169becd.js"
   ]
 }
