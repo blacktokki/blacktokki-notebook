@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.js": "/blacktokki-notebook/static/js/main.cc632d36.js",
+    "main.js": "/blacktokki-notebook/static/js/main.d079b054.js",
     "static/js/594.06d58e2e.chunk.js": "/blacktokki-notebook/static/js/594.06d58e2e.chunk.js",
     "static/js/111.534ee3fd.chunk.js": "/blacktokki-notebook/static/js/111.534ee3fd.chunk.js",
-    "static/js/460.4bd356cc.chunk.js": "/blacktokki-notebook/static/js/460.4bd356cc.chunk.js",
+    "static/js/460.fa32969a.chunk.js": "/blacktokki-notebook/static/js/460.fa32969a.chunk.js",
     "static/js/973.6a1d7788.chunk.js": "/blacktokki-notebook/static/js/973.6a1d7788.chunk.js",
     "static/js/252.768cb12b.chunk.js": "/blacktokki-notebook/static/js/252.768cb12b.chunk.js",
     "static/js/107.40d2d8fa.js": "/blacktokki-notebook/static/js/107.40d2d8fa.js",
@@ -99,16 +99,16 @@
     "tinymce/plugins/colorpicker/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/colorpicker/plugin.min.js",
     "tinymce/plugins/contextmenu/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/contextmenu/plugin.min.js",
     "tinymce/plugins/textcolor/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/textcolor/plugin.min.js",
-    "main.cc632d36.js.map": "/blacktokki-notebook/static/js/main.cc632d36.js.map",
+    "main.d079b054.js.map": "/blacktokki-notebook/static/js/main.d079b054.js.map",
     "594.06d58e2e.chunk.js.map": "/blacktokki-notebook/static/js/594.06d58e2e.chunk.js.map",
     "111.534ee3fd.chunk.js.map": "/blacktokki-notebook/static/js/111.534ee3fd.chunk.js.map",
-    "460.4bd356cc.chunk.js.map": "/blacktokki-notebook/static/js/460.4bd356cc.chunk.js.map",
+    "460.fa32969a.chunk.js.map": "/blacktokki-notebook/static/js/460.fa32969a.chunk.js.map",
     "252.768cb12b.chunk.js.map": "/blacktokki-notebook/static/js/252.768cb12b.chunk.js.map",
     "107.40d2d8fa.js.map": "/blacktokki-notebook/static/js/107.40d2d8fa.js.map",
     "928.5d5bb589.chunk.js.map": "/blacktokki-notebook/static/js/928.5d5bb589.chunk.js.map"
   },
   "entrypoints": [
     "static/js/107.40d2d8fa.js",
-    "static/js/main.cc632d36.js"
+    "static/js/main.d079b054.js"
   ]
 }
