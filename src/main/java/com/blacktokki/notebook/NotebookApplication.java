@@ -6,10 +6,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
 @SpringBootApplication
-public class FeedyNoteApplication {
+public class NotebookApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FeedyNoteApplication.class, args);
+		SpringApplication.run(NotebookApplication.class, args);
 	}
 
 }

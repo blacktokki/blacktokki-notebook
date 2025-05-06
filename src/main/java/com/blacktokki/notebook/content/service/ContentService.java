@@ -37,6 +37,10 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
             List<Long> parentIds = getList(queryParam, Sort.unsorted()).stream().map(v->v.id()).toList();
             return root.get("parentId").in(parentIds);
         }
+        if (key.equals("types")){
+            List<?> list = (List<?>)value;
+            return root.get("type").in(list);
+        }
         if (key.equals("self")){
             if ((Boolean)value){
                 Long userId = ((BaseUserDto)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).id();
