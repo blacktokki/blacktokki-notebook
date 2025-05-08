@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/blacktokki-notebook/static/js/main.679eb941.js",
-    "static/js/594.06d58e2e.chunk.js": "/blacktokki-notebook/static/js/594.06d58e2e.chunk.js",
-    "static/js/111.534ee3fd.chunk.js": "/blacktokki-notebook/static/js/111.534ee3fd.chunk.js",
-    "static/js/326.16cdb779.chunk.js": "/blacktokki-notebook/static/js/326.16cdb779.chunk.js",
-    "static/js/221.51cf8d18.chunk.js": "/blacktokki-notebook/static/js/221.51cf8d18.chunk.js",
-    "static/js/973.6a1d7788.chunk.js": "/blacktokki-notebook/static/js/973.6a1d7788.chunk.js",
-    "static/js/814.9cafdb74.chunk.js": "/blacktokki-notebook/static/js/814.9cafdb74.chunk.js",
-    "static/js/974.ba90f1b7.js": "/blacktokki-notebook/static/js/974.ba90f1b7.js",
-    "static/js/928.5d5bb589.chunk.js": "/blacktokki-notebook/static/js/928.5d5bb589.chunk.js",
+    "main.js": "/blacktokki-notebook/static/js/main.15793c7b.js",
+    "static/js/594.e2feb9cc.chunk.js": "/blacktokki-notebook/static/js/594.e2feb9cc.chunk.js",
+    "static/js/111.e35d80a7.chunk.js": "/blacktokki-notebook/static/js/111.e35d80a7.chunk.js",
+    "static/js/279.518a1479.chunk.js": "/blacktokki-notebook/static/js/279.518a1479.chunk.js",
+    "static/js/601.c79de6e5.chunk.js": "/blacktokki-notebook/static/js/601.c79de6e5.chunk.js",
+    "static/js/973.d6f7db25.chunk.js": "/blacktokki-notebook/static/js/973.d6f7db25.chunk.js",
+    "static/js/560.81e905bd.chunk.js": "/blacktokki-notebook/static/js/560.81e905bd.chunk.js",
+    "static/js/781.add255d4.js": "/blacktokki-notebook/static/js/781.add255d4.js",
+    "static/js/928.1b2377da.chunk.js": "/blacktokki-notebook/static/js/928.1b2377da.chunk.js",
     "static/media/MaterialCommunityIcons.ttf": "/blacktokki-notebook/static/media/MaterialCommunityIcons.5d42b4e60858731e7b65.ttf",
     "tinymce/tinymce.min.js": "/blacktokki-notebook/tinymce/tinymce.min.js",
     "tinymce/plugins/emoticons/js/emojiimages.min.js": "/blacktokki-notebook/tinymce/plugins/emoticons/js/emojiimages.min.js",
@@ -21,6 +21,7 @@
     "tinymce/skins/ui/tinymce-5-dark/skin.min.css": "/blacktokki-notebook/tinymce/skins/ui/tinymce-5-dark/skin.min.css",
     "tinymce/skins/ui/oxide/skin.min.css": "/blacktokki-notebook/tinymce/skins/ui/oxide/skin.min.css",
     "tinymce/skins/ui/oxide-dark/skin.min.css": "/blacktokki-notebook/tinymce/skins/ui/oxide-dark/skin.min.css",
+    "static/media/AntDesign.ttf": "/blacktokki-notebook/static/media/AntDesign.163adab9dbd7cb1ed12a.ttf",
     "tinymce/icons/default/icons.min.js": "/blacktokki-notebook/tinymce/icons/default/icons.min.js",
     "tinymce/plugins/codesample/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/codesample/plugin.min.js",
     "tinymce/plugins/table/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/table/plugin.min.js",
@@ -100,17 +101,17 @@
     "tinymce/plugins/colorpicker/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/colorpicker/plugin.min.js",
     "tinymce/plugins/contextmenu/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/contextmenu/plugin.min.js",
     "tinymce/plugins/textcolor/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/textcolor/plugin.min.js",
-    "main.679eb941.js.map": "/blacktokki-notebook/static/js/main.679eb941.js.map",
-    "594.06d58e2e.chunk.js.map": "/blacktokki-notebook/static/js/594.06d58e2e.chunk.js.map",
-    "111.534ee3fd.chunk.js.map": "/blacktokki-notebook/static/js/111.534ee3fd.chunk.js.map",
-    "326.16cdb779.chunk.js.map": "/blacktokki-notebook/static/js/326.16cdb779.chunk.js.map",
-    "221.51cf8d18.chunk.js.map": "/blacktokki-notebook/static/js/221.51cf8d18.chunk.js.map",
-    "814.9cafdb74.chunk.js.map": "/blacktokki-notebook/static/js/814.9cafdb74.chunk.js.map",
-    "974.ba90f1b7.js.map": "/blacktokki-notebook/static/js/974.ba90f1b7.js.map",
-    "928.5d5bb589.chunk.js.map": "/blacktokki-notebook/static/js/928.5d5bb589.chunk.js.map"
+    "main.15793c7b.js.map": "/blacktokki-notebook/static/js/main.15793c7b.js.map",
+    "594.e2feb9cc.chunk.js.map": "/blacktokki-notebook/static/js/594.e2feb9cc.chunk.js.map",
+    "111.e35d80a7.chunk.js.map": "/blacktokki-notebook/static/js/111.e35d80a7.chunk.js.map",
+    "279.518a1479.chunk.js.map": "/blacktokki-notebook/static/js/279.518a1479.chunk.js.map",
+    "601.c79de6e5.chunk.js.map": "/blacktokki-notebook/static/js/601.c79de6e5.chunk.js.map",
+    "560.81e905bd.chunk.js.map": "/blacktokki-notebook/static/js/560.81e905bd.chunk.js.map",
+    "781.add255d4.js.map": "/blacktokki-notebook/static/js/781.add255d4.js.map",
+    "928.1b2377da.chunk.js.map": "/blacktokki-notebook/static/js/928.1b2377da.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/974.ba90f1b7.js",
-    "static/js/main.679eb941.js"
+    "static/js/781.add255d4.js",
+    "static/js/main.15793c7b.js"
   ]
 }
