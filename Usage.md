@@ -1,123 +1,143 @@
-# 📘 User Guide - Blacktokki Notebook
+# 📘 Blacktokki Notebook User Guide
 
-**Blacktokki Notebook** is a markdown-based **knowledge and time management tool**. Users can freely create, structure, and track documents on various topics over time. Built on React Native, this app is optimized for both mobile and web environments and is ideal for **self-directed learning**, **work documentation**, **knowledge archiving**, and **time-centered retrospectives**.
+**Blacktokki Notebook** is a markdown-based tool for knowledge and time management. Users can freely create, structure, and track notes over time. It is optimized for both mobile and web environments, making it suitable for self-directed learning, work documentation, knowledge archiving, and schedule-based reflection.
 
-### ✨ Key Features
+## Key Features
 
-* ✅ **Markdown-based editor** for flexible and intuitive writing
-* 📁 **Hierarchical document structure** (supports folders and sub-documents)
-* 📆 **Timeline feature** for date-based retrospectives and scheduling
-* 🔁 **Paragraph moving functionality** for restructuring and refactoring documents
-* 🧠 **Autocomplete links** to strengthen connections between documents
-* 🕑 **TimerTag** for easy recurring schedule management
-* 🧳 **Markdown import/export** for data backup and recovery
-
----
-
-## 🏠 Home Screen Guide
-
-### 📱 Mobile View
-
-* **Top SearchBar**: Quickly search or create new documents at any time
-
-* **Bottom Tab View**:
-
-  * **Discovery**: Access recently viewed notes, problematic documents, and timeline
-  * **All Notes**: View recently edited notes as cards
-  * **Config**: Access settings, backups, and account management
-
-### 🖥 Web View
-
-* **Left-side Drawer Component**:
-
-  * A fixed sidebar for accessing all tabs and menus
-  * Shortcuts to "Recently Viewed Documents" and "Problematic Documents"
-
-* **Right-side Content Area**:
-
-  * Displays Notes, Timeline, or Config view depending on selected tab
-  * UI optimized for web (e.g., right-click, long press actions)
+* ✅ Freely write notes using a markdown editor
+* 📁 Organize content hierarchically using folders and sub-notes
+* 🧭 Automatically generated tree view for quick navigation based on headings
+* 🔍 Advanced search across titles, sections, links, and keywords
+* 🔁 Move specific sections to other notes
+* 📆 Automatically detect dates and visualize them as timer bars
+* 🧠 Use autocomplete to quickly insert links and child notes
+* 🧳 Export and import notes in Markdown format
 
 ---
 
-## 📝 Viewing and Creating Notes
+## Getting Started
 
-### ✏️ Creating a Document
+### 🔍 Searching and Creating Notes
 
-* Enter a new title in the top search bar → a new document is automatically created if it doesn’t exist
+* Use the top search bar to find existing notes or create new ones
+* Enter a new title and press `Enter` to automatically create and open the note
 
-### 🔍 Viewing a Document
+### ✏️ Editing Notes
 
-* View **entire or partial content** based on titles and paragraphs
-* 🧭 Use **paragraph navigation** buttons to explore structured content
-* ✏️ Tap the **Edit button** to modify the document
-* 📂 Use **TimerTag scheduling tools** to manage document-based events
+* Use the markdown-based editor to write and format content
+* Autocomplete triggers:
 
-### ✏️ Editing a Document
-
-* Markdown-based editor available
-* Autocomplete support:
-
-  * `[Title`: Auto-completes links to other notes
-  * `http://...`: Preview embedded links
-* Automatically navigates to the document viewer upon saving
+  * `[title` → internal note links
+  * `http` → external link previews
 
 ---
 
-## 📌 Paragraph Moving Feature
+## Screen-by-Screen Guide
 
-* Move paragraphs to other documents or different positions
-* Select the target document and paragraph to **partially copy or move** content
-* Use **preview** to check changes before applying
+### 🏠 Home
+
+* The main screen that appears upon launch
+* Provides quick access to recently viewed notes, issue notes, and the timeline
+* On mobile, access main menus via the bottom tab; on web, use the left-side drawer menu
+
+### 📄 Note Page
+
+* Displays the note title, content, and structured section list
+* The section list is auto-generated from headings (H1\~H6); clicking a section jumps to its position
+* Use top buttons to edit the note, rearrange sections, or view edit history
+
+### ✏️ Note Editing
+
+* A flexible editor that supports both markdown and visual (WYSIWYG) modes
+* Allows free editing with both automatic and manual save options
+* Supports internal links, child notes, and external link previews via autocomplete
+
+### 🗂 Recent Notes
+
+* Lists recently viewed notes in chronological order
+* Click to revisit a note, or remove it from the list if no longer needed
+
+### 🧾 Issue Notes
+
+* Displays notes with detected issues like empty sections, broken links, or duplicated content
+* Clicking an item highlights the issue and lets you jump to that section for editing
+
+### 📆 Timeline
+
+* A calendar-based view that shows all notes linked to dates
+* Use the date selector or calendar to browse notes by day
+* View and edit dated sections directly from this screen
+
+### 🗃 Archive
+
+* Shows previous versions (snapshots) of notes
+* Compare historical content over time, sorted by save date
+* Useful for version control and restoring past content
 
 ---
 
-## 🗓️ Timeline Feature
+## Advanced Features
 
-* View documents linked to specific dates
-* Navigate dates or return to today using the top date navigation
-* Click the displayed date to open a **calendar selector**
+### 📝 Dual Editor Support
+
+* The editor supports both WYSIWYG and markdown input
+* Changes in one mode are reflected in real-time in the other
+* Ideal for users who prefer visual editing or are familiar with markdown syntax
+
+### 📑 Automatic Section Detection
+
+* Headings within notes are automatically structured into a navigable tree view
+* Quickly jump between sections and visualize the overall structure
+
+### 🔗 Link Recognition and Navigation
+
+* Links within notes are automatically detected and categorized
+* Internal note links are also suggested during search and autocomplete
+
+### ⏱ Automatic Date Detection
+
+* Recognizes date patterns like `2024-06-01` or `06/01~06/05`
+* Visualizes dates in the form of a timer bar and integrates with the timeline
+
+### 🧠 Readability Analysis
+
+* Analyzes sentence length and structure to evaluate reading difficulty
+* Helps improve overly complex or lengthy notes
+
+### 🔍 Search History and Autocomplete
+
+* Previously searched keywords are stored for faster reuse
+* Suggestions appear in the search bar to reduce repeat typing
+
+### 🔄 Section Rearrangement and Copying
+
+* Move or copy specific sections to other notes to reorganize content
+* Preview changes before confirming to ensure safe editing
+
+### 📦 Backup and Restore
+
+* Export all notes in Markdown or ZIP format for backup
+* Restore notes from saved files when needed
+
+### 💾 Storage Options and Account Sync
+
+* Choose between local or cloud-based accounts for saving notes
+* Online sync keeps notes up-to-date automatically
+
+### 🗃 Snapshot History and Comparison
+
+* Notes are automatically backed up when saved
+* Compare current content with past versions through the Archive screen
+
+### 🎯 Random Note Access
+
+* Open a randomly selected note to discover content from a new perspective
 
 ---
 
-## 🛠 Settings (Config)
+## 📞 Contact
 
-* 🔍 **Search Settings**:
+If you have feature suggestions, bug reports, or questions, feel free to reach out:
 
-  * View or delete previous search history
-
-* 📦 **Export/Import**:
-
-  * Backup notes as Markdown (ZIP format)
-  * Import `.md` or `.zip` files to restore documents
-
-* 👤 **Account Switching**:
-
-  * Supports switching between local and external accounts
-
----
-
-## 🧠 Document Types
-
-| Type             | Description                                   |
-| ---------------- | --------------------------------------------- |
-| General Note     | Manually created user content                 |
-| Recent Note      | Recently viewed or edited document            |
-| Problematic Note | Empty or incomplete documents                 |
-| Timeline Note    | Date-associated schedule-based notes          |
-| Archived Note    | Snapshots of saved documents (with timestamp) |
-
----
-
-## 🧭 Quick Start Guide
-
-| Task            | Path                               |
-| --------------- | ---------------------------------- |
-| Search Document | Top 🔍 Search Bar                  |
-| Create New Note | Enter non-existing title in search |
-| Edit Document   | Viewer → ✏️ Edit Button            |
-| Move Paragraph  | Viewer → 🔄 Icon                   |
-| View Timeline   | Home → TimeLine Button             |
-| Backup Notes    | Config Tab → Export                |
-| Restore Notes   | Config Tab → Import                |
-
+* Email: [ydh051541@naver.com](mailto:ydh051541@naver.com)
+* GitHub Issues: [https://github.com/blacktokki/notebook/issues](https://github.com/blacktokki/notebook/issues)
