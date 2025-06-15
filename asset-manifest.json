@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.js": "/blacktokki-notebook/static/js/main.1b1879e0.js",
+    "main.js": "/blacktokki-notebook/static/js/main.02fe99f3.js",
     "static/js/594.3330dcf1.chunk.js": "/blacktokki-notebook/static/js/594.3330dcf1.chunk.js",
     "static/js/111.e35d80a7.chunk.js": "/blacktokki-notebook/static/js/111.e35d80a7.chunk.js",
-    "static/js/483.ff009a6a.chunk.js": "/blacktokki-notebook/static/js/483.ff009a6a.chunk.js",
+    "static/js/483.b14091f7.chunk.js": "/blacktokki-notebook/static/js/483.b14091f7.chunk.js",
     "static/js/601.1c67970a.chunk.js": "/blacktokki-notebook/static/js/601.1c67970a.chunk.js",
     "static/js/973.d6f7db25.chunk.js": "/blacktokki-notebook/static/js/973.d6f7db25.chunk.js",
     "static/js/794.2f3cad04.chunk.js": "/blacktokki-notebook/static/js/794.2f3cad04.chunk.js",
@@ -107,10 +107,10 @@
     "tinymce/plugins/colorpicker/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/colorpicker/plugin.min.js",
     "tinymce/plugins/contextmenu/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/contextmenu/plugin.min.js",
     "tinymce/plugins/textcolor/plugin.min.js": "/blacktokki-notebook/tinymce/plugins/textcolor/plugin.min.js",
-    "main.1b1879e0.js.map": "/blacktokki-notebook/static/js/main.1b1879e0.js.map",
+    "main.02fe99f3.js.map": "/blacktokki-notebook/static/js/main.02fe99f3.js.map",
     "594.3330dcf1.chunk.js.map": "/blacktokki-notebook/static/js/594.3330dcf1.chunk.js.map",
     "111.e35d80a7.chunk.js.map": "/blacktokki-notebook/static/js/111.e35d80a7.chunk.js.map",
-    "483.ff009a6a.chunk.js.map": "/blacktokki-notebook/static/js/483.ff009a6a.chunk.js.map",
+    "483.b14091f7.chunk.js.map": "/blacktokki-notebook/static/js/483.b14091f7.chunk.js.map",
     "601.1c67970a.chunk.js.map": "/blacktokki-notebook/static/js/601.1c67970a.chunk.js.map",
     "794.2f3cad04.chunk.js.map": "/blacktokki-notebook/static/js/794.2f3cad04.chunk.js.map",
     "274.5a469626.chunk.js.map": "/blacktokki-notebook/static/js/274.5a469626.chunk.js.map",
@@ -121,6 +121,6 @@
   },
   "entrypoints": [
     "static/js/781.12a2e7c3.js",
-    "static/js/main.1b1879e0.js"
+    "static/js/main.02fe99f3.js"
   ]
 }
