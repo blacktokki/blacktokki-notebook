@@ -1,1 +1,9 @@
-editorConfig={plugins:"image link charmap advlist lists paste hr noneditable",toolbar:"fontsizeselect | bold italic underline strikethrough | undo redo | alignleft aligncenter alignright | bullist numlist | hr link",setup:e=>{}},"undefined"!==typeof module&&(module.exports=editorConfig);
+editorConfig = {
+    plugins: 'image link charmap advlist lists paste hr noneditable', //autoresize textcolor imagetools,
+    toolbar: 'fontsizeselect | bold italic underline strikethrough | undo redo | alignleft aligncenter alignright | bullist numlist | hr link', // charmap removeformat
+    setup: (editor)=>{
+    }
+}
+if (typeof module !== 'undefined') {
+    module.exports = editorConfig
+}

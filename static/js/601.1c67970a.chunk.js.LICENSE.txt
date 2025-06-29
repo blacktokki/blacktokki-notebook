@@ -1,4 +1,0 @@
-/**
- * @preserve XDate v@VERSION
- * Docs & Licensing: http://arshaw.com/xdate/
- */
