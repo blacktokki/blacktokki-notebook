@@ -21,7 +21,15 @@ public class OpenGraphService implements PreviewService<PreviewRequestDto, WebPr
 
     public static String getHtmlTitle(String urlString) {
         try {
-            return Jsoup.connect(urlString).get().title();
+            return Jsoup.connect(urlString)
+                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/138.0.0.0 Safari/537.36")
+                .referrer("https://www.google.com")
+                .header("Accept-Language", "en-US,en;q=0.9")
+                .header("Accept-Encoding", "gzip, deflate")
+                .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+                .timeout(5_000)
+                .get()
+                .title();
         } catch (IOException e) {
             return null;
         }
