@@ -6,8 +6,7 @@ import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
 public enum ContentType {
-    TIMELINE, FEED, FEEDCONTENT, SEARCH, SEARCHCONTENT, LIBRARY, NOTE, 
-    NOTEV2, BOOKMARK, PAGE, EDITOR, LINK, MARKDOWN, IMPORT, SNAPSHOT;
+    NOTE, SNAPSHOT, DELTA, BOOKMARK, UNKNOWN;
 }
 
 @Converter
@@ -22,12 +21,12 @@ class EnumConverter implements AttributeConverter<ContentType, String> {
     }
 
     @Override
-    public ContentType convertToEntityAttribute(String dbData) {	//Entity로 반환
+    public ContentType convertToEntityAttribute(String dbData) {
         if(dbData == null){
             return null;
         }
         return Arrays.stream(ContentType.values())
             .filter( t -> t.name().equals(dbData))
-            .findAny().orElse(null);
+            .findAny().orElse(ContentType.UNKNOWN);
     }
 }
