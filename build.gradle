@@ -38,6 +38,7 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	implementation 'net.sourceforge.htmlcleaner:htmlcleaner:2.29'
 	implementation 'org.jsoup:jsoup:1.15.3'
+	implementation 'org.bitbucket.cowwoc:diff-match-patch:1.2'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-gson:0.11.5'
 	runtimeOnly 'com.mysql:mysql-connector-j'
