@@ -6,7 +6,7 @@ import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
 public enum ContentType {
-    NOTE, SNAPSHOT, DELTA, BOOKMARK, UNKNOWN;
+    NOTE, SNAPSHOT, DELTA, BOOKMARK, BOARD, UNKNOWN;
 }
 
 @Converter
