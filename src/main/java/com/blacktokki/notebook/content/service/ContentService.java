@@ -73,10 +73,16 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
         if (lastContents.size() == 2) {
             Content newer = lastContents.get(0);
             Content older = lastContents.get(1);
+            List<Content> lastDelta = ((ContentRepository) getRepository()).findByTypeAndParentIdOrderByIdDesc(
+                Pageable.ofSize(1), ContentType.DELTA, newDomain.parentId());
+            String prevDelta = "";
+            if (lastDelta.size() == 1 && lastDelta.get(0).getId() > older.getId() ) {
+                prevDelta = lastDelta.get(0).getDescription();
+            }
             LinkedList<DiffMatchPatch.Diff> diffs = dmp.diffMain(older.getDescription(), newer.getDescription());
             dmp.diffCleanupSemantic(diffs);
             String delta = dmp.diffToDelta(diffs);
-            if (delta.length() < newer.getDescription().length()) {
+            if (delta.length() + prevDelta.length() < newer.getDescription().length()) {
                 ContentOption.Map option = new ContentOption.Map();
                 option.put(ContentOption.SNAPSHOT_ID, older.getId());
                 Content deltaContent = Content.builder()
