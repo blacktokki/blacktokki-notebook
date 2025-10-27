@@ -15,7 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.blacktokki.notebook.content.dto.ContentBulkDto;
 import com.blacktokki.notebook.content.dto.ContentDto;
 import com.blacktokki.notebook.content.dto.ContentOrderDto;
 import com.blacktokki.notebook.content.dto.ContentQueryParam;
@@ -110,7 +109,6 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
         List<Content> entityList = getRepository().findAllById(ids);
         for (Content entity: entityList){
             setEntityNotNullFields(entity, newEntity);
-            System.out.println(entity);
         }
         getRepository().saveAll(entityList); 
     }
@@ -120,16 +118,5 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
         list.forEach(req -> 
             ((ContentRepository)getRepository()).updateOrder(req.id(), req.order())
         );
-    }
-
-    @Transactional
-    public List<ContentOrderDto> bulk(ContentBulkDto bulkDto) {
-        List<Long> deleteIds = this.getList(bulkDto.deleted(), Sort.unsorted()).stream().map(v->v.id()).toList();
-        this.bulkDelete(deleteIds);
-        return bulkDto.created().stream().map((dto)->{
-            ContentDto result = this.create(dto);
-            return new ContentOrderDto(result.id(), result.order());
-        }).toList();
-    
     }
 }
