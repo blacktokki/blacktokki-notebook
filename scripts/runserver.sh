@@ -13,5 +13,5 @@ then
 else
   # ./gradlew build
   echo "=====$var isn't running====="
-  nohup java -jar build/libs/$var*.war >/dev/null 2>&1 &
+  nohup java -jar -Djava.security.egd=file:/dev/./urandom -XX:TieredStopAtLevel=1 build/libs/$var*.war >/dev/null 2>&1 &
 fi

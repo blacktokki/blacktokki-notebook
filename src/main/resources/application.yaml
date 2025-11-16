@@ -1,4 +1,6 @@
 spring:
+  main:
+    lazy-initialization: 'false'
   jpa:
     properties:
       hibernate:
@@ -13,12 +15,17 @@ spring:
     hibernate:
       ddl-auto: none
     show-sql: 'true'
+    open-in-view": 'false'
   flyway:
     enabled: 'false'
     locations: classpath:db/migration/${spring.jpa.properties.application-name}
   datasource:
     hikari:
       catalog: db1_${spring.jpa.properties.application-name}
+      maximum-pool-size: 3
+      minimum-idle: 3
+      keepalive-time: 120000
+      max-lifetime: 1800000
     driver-class-name: com.mysql.cj.jdbc.Driver
   config:
     import: classpath:datasource.yaml, classpath:secret.yaml
@@ -31,6 +38,8 @@ spring:
     restart:
       additional-exclude: db/migration/**
   mvc:
+    servlet:
+      load-on-startup: 1
     pathmatch:
       matching-strategy: ant_path_matcher
 eureka:

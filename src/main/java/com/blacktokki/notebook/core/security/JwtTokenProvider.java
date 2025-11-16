@@ -11,12 +11,16 @@ import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
+import jakarta.annotation.PostConstruct;
 
 @Component
 public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String secretKey;
+
+    private JwtParser parser;
 
     private final UserDetailsService userDetailsService;
 
@@ -24,9 +28,20 @@ public class JwtTokenProvider {
         this.userDetailsService = userDetailsService;
     }
 
+    @PostConstruct
+    protected void init() {
+        parser = Jwts.parserBuilder().setSigningKey(secretKey.getBytes()).build();
+        // warmup 처리
+        try {
+            parser.parseClaimsJws("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5ZGgwNTE1NDFAZ21haWwuY29tIiwib3JpZ19pYXQiOjE3NjIwODEwMjA2NjQsImlhdCI6MTc2MjA4MzU0NSwiZXhwIjoxNzYyMDg1MzQ1fQ.BZ7I_OsbcW12tTTF6bcrLXWpraih4hyA1mp54ddDglY");
+        } catch (Exception e) {
+        }
+        userDetailsService.loadUserByUsername("");
+    }
+
     public boolean validateToken(String jwtToken) {
         try {
-            Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(secretKey.getBytes()).build().parseClaimsJws(jwtToken);
+            Jws<Claims> claims = parser.parseClaimsJws(jwtToken);
             return !claims.getBody().getExpiration().before(new Date());
         } catch (Exception e) {
             e.printStackTrace();
@@ -35,7 +50,7 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        String subject = Jwts.parserBuilder().setSigningKey(secretKey.getBytes()).build().parseClaimsJws(token).getBody().getSubject();
+        String subject = parser.parseClaimsJws(token).getBody().getSubject();
         UserDetails userDetails = userDetailsService.loadUserByUsername(subject);
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
