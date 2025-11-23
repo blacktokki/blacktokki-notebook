@@ -20,4 +20,6 @@ public interface ContentRepository extends JpaRepository<Content, Long>, JpaSpec
     void updateOrder(@Param("id") Long id, @Param("order") int order);
 
     List<Content> findByTypeAndParentIdOrderByIdDesc(Pageable pageable, ContentType type, Long parentId);
+
+    Long countByTypeAndParentIdAndIdGreaterThan(ContentType type, Long parentId, Long id);
 }

@@ -68,21 +68,18 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
     }
 
     private void createDelta(ContentDto newDomain) {
+        // 가장 최근에 생성한 SNAPSHOT을 조건부로 DELTA로 변경한다.
         List<Content> lastContents = ((ContentRepository) getRepository()).findByTypeAndParentIdOrderByIdDesc(
             Pageable.ofSize(2), ContentType.SNAPSHOT, newDomain.parentId());
         if (lastContents.size() == 2) {
             Content newer = lastContents.get(0);
             Content older = lastContents.get(1);
-            List<Content> lastDelta = ((ContentRepository) getRepository()).findByTypeAndParentIdOrderByIdDesc(
-                Pageable.ofSize(1), ContentType.DELTA, newDomain.parentId());
-            String prevDelta = "";
-            if (lastDelta.size() == 1 && lastDelta.get(0).getId() > older.getId() ) {
-                prevDelta = lastDelta.get(0).getDescription();
-            }
+            Long diffCount = ((ContentRepository) getRepository()).countByTypeAndParentIdAndIdGreaterThan(
+                ContentType.DELTA, older.getParentId(), older.getId());
             LinkedList<DiffMatchPatch.Diff> diffs = dmp.diffMain(older.getDescription(), newer.getDescription());
             dmp.diffCleanupSemantic(diffs);
             String delta = dmp.diffToDelta(diffs);
-            if (delta.length() + prevDelta.length() < newer.getDescription().length()) {
+            if (diffCount < 19 && delta.length() < newer.getDescription().length()) {
                 ContentOption.Map option = new ContentOption.Map();
                 option.put(ContentOption.SNAPSHOT_ID, older.getId());
                 Content deltaContent = Content.builder()
@@ -102,7 +99,7 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
     @Override
     @Transactional
     public ContentDto create(ContentDto newDomain){
-        if (false || newDomain.type().equals(ContentType.SNAPSHOT)) {
+        if (newDomain.type().equals(ContentType.SNAPSHOT)) {
             createDelta(newDomain);
         }
         return super.create(newDomain);
