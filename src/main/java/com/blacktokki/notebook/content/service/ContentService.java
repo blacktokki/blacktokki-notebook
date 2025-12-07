@@ -90,7 +90,9 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
                     .order(newer.getOrder())
                     .title(newer.getTitle())
                     .description(delta)
-                    .option(option).build();
+                    .option(option)
+                    .updated(newer.getUpdated())
+                    .build();
                 getRepository().save(deltaContent);
             }
         }
