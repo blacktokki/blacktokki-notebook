@@ -23,5 +23,6 @@ echo "spring.datasource.url: jdbc:mysql://127.0.0.1:3306/?rewriteBatchedStatemen
 echo "spring.datasource.username: $1" >> $DATASOURCE_FILE
 echo "spring.datasource.password: $2" >> $DATASOURCE_FILE
 echo "jwt.secret: $2" >> $SECRET_FILE
+echo "jwt.pat-secret: $2" >> $SECRET_FILE
 
 read -p "Press enter to continue"

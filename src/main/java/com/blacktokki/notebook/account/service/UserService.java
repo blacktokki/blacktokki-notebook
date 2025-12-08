@@ -6,6 +6,7 @@ import jakarta.persistence.criteria.Root;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.blacktokki.notebook.account.dto.UserDto;
@@ -18,10 +19,13 @@ import com.blacktokki.notebook.core.service.restful.RestfulService;
 @Service
 public class UserService extends RestfulService<UserDto, User, Long> implements UserDetailsService{
     @Override
-    public AuthenticateDto loadUserByUsername(String username){
+    public AuthenticateDto loadUserByUsername(String username) throws UsernameNotFoundException {
         UserQueryParam userSpecification = new UserQueryParam(null, username, null);
         User user = getExecutor().findOne(toSpecification(userSpecification)).orElse(null);
-        return user != null ? new AuthenticateDto(user.getId(), user.getUsername(), user.getPassword(), user.getName()) : null;
+        if (user == null) {
+            throw new UsernameNotFoundException(username);
+        }
+        return new AuthenticateDto(user.getId(), user.getUsername(), user.getPassword(), user.getName());
     }
 
     @Override
