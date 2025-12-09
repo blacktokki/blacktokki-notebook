@@ -18,11 +18,18 @@ public class PersonalAccessToken {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "us_id", updatable = false, insertable = false)
+    private User user;
+
     @Column(name = "us_id", nullable = true)
     private Long userId;
 
     @Column(name = "pa_name", nullable = false)
     private String name;
+
+    @Column(name = "pa_token", nullable = false)
+    private String token;
 
     @Column(name = "pa_expired", nullable = false)
     private LocalDateTime expired;
@@ -32,9 +39,10 @@ public class PersonalAccessToken {
     private LocalDateTime created;
 
     @Builder
-    public PersonalAccessToken(Long userId, String name, LocalDateTime expirationDate) {
+    public PersonalAccessToken(Long userId, String name, String token, LocalDateTime expirationDate) {
         this.userId = userId;
         this.name = name;
+        this.token = token;
         this.expired = expirationDate;
     }
 }

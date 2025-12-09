@@ -13,11 +13,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
 
-public class JwtAuthenticationFilter extends GenericFilterBean {
+public class AuthenticationFilter extends GenericFilterBean {
     private final JwtTokenProvider jwtTokenProvider;
+    private final PatProvider patProvider;
 
-    public JwtAuthenticationFilter(JwtTokenProvider jwtTokenProvider) {
+    public AuthenticationFilter(JwtTokenProvider jwtTokenProvider, PatProvider patProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
+        this.patProvider = patProvider;
     }
 
     @Override
@@ -27,8 +29,15 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         if (authorization != null){
             String[] authorizationSplits = authorization.split(" ");
             String token = authorizationSplits.length == 2 ? authorizationSplits[1] : "";
+            
             // 토큰이 유효하면 토큰으로부터 유저 정보를 받아옵니다.
-            Authentication authentication = jwtTokenProvider.getAuthentication(token);
+            Authentication authentication = null;
+            if (authorizationSplits[1].toUpperCase() == "PAT") {
+                authentication = patProvider.getAuthentication(token);
+            }
+            else {
+                authentication = jwtTokenProvider.getAuthentication(token);
+            }
             // 유효한 토큰인지 확인합니다.
             if (authentication != null) {    
                 // SecurityContext 에 Authentication 객체를 저장합니다.

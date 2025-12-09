@@ -28,6 +28,9 @@ public class SecurityConfig {
 
     @Autowired
     JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    PatProvider patProvider;
  
     @Autowired
     AuthAccessDeniedHandler authAccessDeniedHandler;
@@ -45,7 +48,7 @@ public class SecurityConfig {
             .anyRequest().authenticated()
         )
             // 로그인 페이지 및 성공 url, handler 그리고 로그인 시 사용되는 id, password 파라미터 정의
-            .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(new AuthenticationFilter(jwtTokenProvider, patProvider), UsernamePasswordAuthenticationFilter.class)
             // 로그아웃 관련 설정
             .logout(t->t.logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true))
             // csrf 사용유무 설정
