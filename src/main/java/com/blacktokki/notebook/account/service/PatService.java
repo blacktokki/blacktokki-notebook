@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.blacktokki.notebook.account.dto.PatDto;
 import com.blacktokki.notebook.account.entity.PersonalAccessToken;
 import com.blacktokki.notebook.account.entity.User;
 import com.blacktokki.notebook.account.repository.PatRepository;
@@ -47,7 +48,7 @@ public class PatService implements PatProvider {
 
         PersonalAccessToken pat = PersonalAccessToken.builder()
                 .userId(user.id())
-                .name(user.name() + '(' + now.toInstant().toString() + ')')
+                .description(user.name() + '(' + now.toInstant().toString() + ')')
                 .token(this.sha256(token))
                 .expirationDate(LocalDateTime.ofInstant(expireDate.toInstant(), ZoneId.of("Asia/Seoul")))
                 .build();
@@ -55,9 +56,9 @@ public class PatService implements PatProvider {
         return token;
     }
 
-    public List<PersonalAccessToken> getMyTokens() {
+    public List<PatDto> getMyTokens() {
         BaseUserDto user = utilService.getUser();
-        return patRepository.findAllByUserId(user.id());
+        return patRepository.findAllByUserId(user.id()).stream().map(v->new PatDto(v.getId(), v.getDescription(), v.getExpired())).toList();
     }
 
     @Transactional
@@ -76,7 +77,7 @@ public class PatService implements PatProvider {
     @Override
     public Authentication getAuthentication(String token){
         Optional<PersonalAccessToken> pat = patRepository.findOneByToken(this.sha256(token));
-        if (pat.isEmpty()) {
+        if (pat.isEmpty() || pat.get().getExpired().isBefore(LocalDateTime.now())) {
             return null;
         }
         User user = pat.get().getUser();

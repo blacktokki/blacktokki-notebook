@@ -25,8 +25,8 @@ public class PersonalAccessToken {
     @Column(name = "us_id", nullable = true)
     private Long userId;
 
-    @Column(name = "pa_name", nullable = false)
-    private String name;
+    @Column(name = "pa_description", nullable = false)
+    private String description;
 
     @Column(name = "pa_token", nullable = false)
     private String token;
@@ -39,9 +39,9 @@ public class PersonalAccessToken {
     private LocalDateTime created;
 
     @Builder
-    public PersonalAccessToken(Long userId, String name, String token, LocalDateTime expirationDate) {
+    public PersonalAccessToken(Long userId, String description, String token, LocalDateTime expirationDate) {
         this.userId = userId;
-        this.name = name;
+        this.description = description;
         this.token = token;
         this.expired = expirationDate;
     }

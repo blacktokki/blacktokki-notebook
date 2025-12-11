@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.blacktokki.notebook.account.entity.PersonalAccessToken;
+import com.blacktokki.notebook.account.dto.PatDto;
 import com.blacktokki.notebook.account.service.PatService;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class PatController {
 
     // 2. PAT 목록 조회
     @GetMapping("")
-    public ResponseEntity<List<PersonalAccessToken>> getPats() {
+    public ResponseEntity<List<PatDto>> getPats() {
         return ResponseEntity.ok(patService.getMyTokens());
     }
 
