@@ -80,7 +80,7 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
             dmp.diffCleanupSemantic(diffs);
             String delta = dmp.diffToDelta(diffs);
             if (diffCount < 19 && delta.length() < newer.getDescription().length()) {
-                ContentOption.Map option = new ContentOption.Map();
+                ContentOption.Map option = new ContentOption.Map(newer.getOption());
                 option.put(ContentOption.SNAPSHOT_ID, older.getId());
                 Content deltaContent = Content.builder()
                     .id(newer.getId())
