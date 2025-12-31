@@ -19,8 +19,8 @@
 
 ### 🔍 Searching and Creating Notes
 
-* Use the top search bar to find existing notes or create new ones.
-* Enter a new title and press `Enter` to automatically create and open the note.
+* Full-text Search: Enter a keyword in the search bar and click the 🔍 button or press Enter to navigate to the full-text search results page, which searches through both note titles and their entire content.
+* Direct Navigation and Creation: Click the ➔ button to the right of the search bar to immediately jump to a note with that exact title.
 
 ### ✏️ Editing Notes
 
@@ -187,13 +187,16 @@
 * This feature allows you to hide sensitive information when viewing notes in public spaces or sharing your screen.
 * **How to hide notes:** If a note title (or the title in a sub-path) starts with a `.` (dot), that note and its sub-notes are automatically treated as privacy-protected.
     * Examples: `.SecretDiary`, `Project/.Confidential`, `PersonalInfo/.Finance`
-* **Mode Settings:** You can toggle this feature On or Off in **Home > Config > * Note Settings > Privacy Mode**.
-    * **Off (Default):** Protected notes are completely hidden from lists, search results, Kanban boards, and the timeline.
-    * **On:** Hidden notes become visible again, allowing full access and editing.
 * **Independent Tab List:** When Privacy Mode is enabled, the 'Tab List' on the Home screen switches to **'Tab List - Privacy Mode'**.
     * The history of notes viewed in this mode (tabs) is **completely separated and stored independently** from the normal mode's tab list.
     * Turning off Privacy Mode restores the regular tab list. This allows you to manage your private work history so that it does not appear on the standard screen.
 * If you attempt to access a hidden note directly (e.g., via URL) while the mode is **Off**, a warning message will appear, and the content will remain hidden.
+
+### 🔐 Personal Access Token (PAT) Management
+
+* You can directly generate and manage Personal Access Tokens (PATs) required for integrating with external services and applications.
+* New tokens can be issued in a dedicated section within the Account Edit modal; for security reasons, the token value is displayed only once immediately after issuance, so it must be copied and stored in a safe place right away.
+* You can view the list of currently active tokens and their expiration dates, and maintain security by deleting tokens that are no longer in use at any time.
 
 ---
 
