@@ -32,10 +32,10 @@ public class AuthenticationFilter extends GenericFilterBean {
             
             // 토큰이 유효하면 토큰으로부터 유저 정보를 받아옵니다.
             Authentication authentication = null;
-            if (authorizationSplits[1].toUpperCase() == "PAT") {
+            if (token.startsWith(patProvider.getPrefix())) {
                 authentication = patProvider.getAuthentication(token);
             }
-            else {
+            if (authentication == null) {
                 authentication = jwtTokenProvider.getAuthentication(token);
             }
             // 유효한 토큰인지 확인합니다.

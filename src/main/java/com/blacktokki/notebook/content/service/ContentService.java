@@ -67,6 +67,13 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
         return Content.builder().userId(t.userId()).parentId(t.parentId()).type(t.type()).order(t.order()).title(t.title()).description(t.description()).option(t.option()).build();
     }
 
+    private void addPatDescription(ContentDto newDomain) {
+        Object patDescription = SecurityContextHolder.getContext().getAuthentication().getCredentials();
+        if (!patDescription.equals("")) {
+            newDomain.option().put(ContentOption.PAT_DESCRIPTION, patDescription);
+        }
+    }
+
     private void createDelta(ContentDto newDomain) {
         // 가장 최근에 생성한 SNAPSHOT을 조건부로 DELTA로 변경한다.
         List<Content> lastContents = ((ContentRepository) getRepository()).findByTypeAndParentIdOrderByIdDesc(
@@ -102,6 +109,7 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
     @Transactional
     public ContentDto create(ContentDto newDomain){
         if (newDomain.type().equals(ContentType.SNAPSHOT)) {
+            addPatDescription(newDomain);
             createDelta(newDomain);
         }
         return super.create(newDomain);

@@ -1,5 +1,6 @@
 package com.blacktokki.notebook.account.service;
 import lombok.RequiredArgsConstructor;
+import lombok.Getter;
 
 import org.bouncycastle.util.encoders.Hex;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.blacktokki.notebook.account.dto.PatDto;
+import com.blacktokki.notebook.account.dto.PatRequestDto;
 import com.blacktokki.notebook.account.entity.PersonalAccessToken;
 import com.blacktokki.notebook.account.entity.User;
 import com.blacktokki.notebook.account.repository.PatRepository;
@@ -30,7 +32,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class PatService implements PatProvider {
-    private final String PREFIX = "pat_";
+    @Getter
+    private final String prefix = "pat_";
     private final SecureRandom secureRandom = new SecureRandom();
     private final Base64.Encoder base64Encoder = Base64.getUrlEncoder();
     private final long tokenValidTime = 14 * 24 * 60 * 60 * 1000L;
@@ -38,17 +41,18 @@ public class PatService implements PatProvider {
     private final UtilService utilService;
 
     @Transactional
-    public String issueToken() {
+    public String issueToken(PatRequestDto patRequestDto) {
         byte[] randomBytes = new byte[24];
         secureRandom.nextBytes(randomBytes);
-        String token = PREFIX + base64Encoder.encodeToString(randomBytes).replace("=", "");
+        String token = prefix + base64Encoder.encodeToString(randomBytes).replace("=", "");
         Date now = new Date();
         Date expireDate = new Date(now.getTime() + tokenValidTime);
         BaseUserDto user = utilService.getUser();
+        String description = patRequestDto.description() != null ? patRequestDto.description() : user.name() + '(' + now.toInstant().toString() + ')'; 
 
         PersonalAccessToken pat = PersonalAccessToken.builder()
                 .userId(user.id())
-                .description(user.name() + '(' + now.toInstant().toString() + ')')
+                .description(description)
                 .token(this.sha256(token))
                 .expirationDate(LocalDateTime.ofInstant(expireDate.toInstant(), ZoneId.of("Asia/Seoul")))
                 .build();
@@ -81,8 +85,8 @@ public class PatService implements PatProvider {
             return null;
         }
         User user = pat.get().getUser();
-        AuthenticateDto userDetails = new AuthenticateDto(user.getId(), user.getUsername(), user.getPassword(), user.getName());
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        AuthenticateDto userDetails = new AuthenticateDto(user.getId(), user.getUsername(), user.getName());
+        return new UsernamePasswordAuthenticationToken(userDetails, pat.get().getDescription(), userDetails.getAuthorities());
     }
 
     private String sha256(String original) {

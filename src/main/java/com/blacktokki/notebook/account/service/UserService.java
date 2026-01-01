@@ -25,7 +25,7 @@ public class UserService extends RestfulService<UserDto, User, Long> implements 
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
-        return new AuthenticateDto(user.getId(), user.getUsername(), user.getPassword(), user.getName());
+        return new AuthenticateDto(user.getId(), user.getUsername(), user.getName());
     }
 
     @Override

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.blacktokki.notebook.account.dto.PatDto;
+import com.blacktokki.notebook.account.dto.PatRequestDto;
 import com.blacktokki.notebook.account.service.PatService;
 
 import java.util.List;
@@ -18,8 +19,8 @@ public class PatController {
 
     // 1. PAT 생성
     @PostMapping("")
-    public ResponseEntity<String> createPat() {
-        String token = patService.issueToken();
+    public ResponseEntity<String> createPat(@RequestBody PatRequestDto patRequestDto) {
+        String token = patService.issueToken(patRequestDto);
         return ResponseEntity.ok(token);
     }
 
