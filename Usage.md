@@ -190,6 +190,7 @@
 * **Independent Tab List:** When Privacy Mode is active, the 'Tab List' on the Home screen switches to **'Tab List - Privacy Mode'**, keeping your private browsing history completely separate from the standard mode.
 * **Enhanced Security (OTP):** By enabling 'Require OTP for Privacy Mode', the system will prompt for an OTP via a secure modal whenever you enter the mode or attempt to disable this security setting. (This feature is supported for online accounts with OTP enabled.)
 * **Auto-unlock Timer:** If the 'Auto-unlock (10 mins)' option is enabled, Privacy Mode will automatically turn off after 10 minutes of inactivity to ensure your data remains secure.
+* **Session Reset Option:** When the 'Disable Privacy Mode on refresh or new access' option is enabled, Privacy Mode will automatically start in the 'Off' state whenever the web page is refreshed or the app is restarted after being completely closed.
 * If you attempt to access a hidden note directly (e.g., via URL) while the mode is **Off**, a warning message will appear, and the content will remain hidden.
 
 ### 🔐 Personal Access Token (PAT) Management
