@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.List;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +36,18 @@ public class UtilService {
         } catch (JsonProcessingException e) {
             return "";
         }
+    }
+
+    public String getPatDescription() {
+        for (GrantedAuthority a : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+            if (a.getAuthority().startsWith("PAT_")) {
+                return a.getAuthority().substring(4);
+            }
+        }
+        return null;
+    }
+
+    public List<String> getAuthorities() {
+        return SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().map(v->v.getAuthority()).toList();
     }
 }

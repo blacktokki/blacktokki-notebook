@@ -4,5 +4,5 @@ import java.util.List;
 
 import com.blacktokki.notebook.content.entity.ContentType;
 
-public record ContentQueryParam(List<ContentType> types, Long parentId, Long grandParentId, Boolean self, Boolean withDeleted){
+public record ContentQueryParam(List<ContentType> types, Long parentId, Boolean withHidden, Boolean withDeleted){
 }

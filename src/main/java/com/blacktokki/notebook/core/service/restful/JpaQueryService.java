@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -56,7 +55,7 @@ public interface JpaQueryService<T, E, ID> extends QueryService<T, ID> {
         return new Specification<E>() {
             @Override
             public Predicate toPredicate(Root<E> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                Predicate[] predicates = toPredicates(param, (k, v)->JpaQueryService.this.toPredicate(k, v, root, criteriaBuilder)).filter(Objects::nonNull).toArray(Predicate[]::new);
+                Predicate[] predicates = toPredicates(param, root, criteriaBuilder).filter(Objects::nonNull).toArray(Predicate[]::new);
                 if (predicates.length > 0){
                     return criteriaBuilder.and(predicates);
                 }
@@ -72,24 +71,23 @@ public interface JpaQueryService<T, E, ID> extends QueryService<T, ID> {
         return builder.equal(root.get(key), value);
     }
 
-    default Stream<Predicate> toPredicates(Object param, BiFunction<String, Object, Predicate> callback) {
+    default Stream<Predicate> toPredicates(Object param, Root<E> root, CriteriaBuilder builder) {
         try {
             if (param.getClass().isRecord()){
                 return Arrays.stream(param.getClass().getRecordComponents()).map(rc->{
                     try {
-                        return callback.apply(rc.getName(), rc.getAccessor().invoke(param));
+                        return toPredicate(rc.getName(), rc.getAccessor().invoke(param), root, builder);
                     } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                         e.printStackTrace();
                     }
                     return null;
-                });
-
+                }).filter(Objects::nonNull);
             }
 
             return Arrays.stream(Introspector.getBeanInfo(param.getClass()).getPropertyDescriptors()).map(pd -> {
                 if (pd.getReadMethod() != null && !"class".equals(pd.getName())) {
                     try {
-                        return callback.apply(pd.getName(), pd.getReadMethod().invoke(param));
+                        return toPredicate(pd.getName(), pd.getReadMethod().invoke(param), root, builder);
                     } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                         e.printStackTrace();
                     }

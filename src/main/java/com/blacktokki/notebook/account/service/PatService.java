@@ -5,6 +5,8 @@ import lombok.Getter;
 import org.bouncycastle.util.encoders.Hex;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +26,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -86,7 +90,9 @@ public class PatService implements PatProvider {
         }
         User user = pat.get().getUser();
         AuthenticateDto userDetails = new AuthenticateDto(user.getId(), user.getUsername(), user.getName());
-        return new UsernamePasswordAuthenticationToken(userDetails, pat.get().getDescription(), userDetails.getAuthorities());
+        Collection<GrantedAuthority> authorities = new ArrayList<>(userDetails.getAuthorities());
+        authorities.add(new SimpleGrantedAuthority("PAT_" + pat.get().getDescription()));
+        return new UsernamePasswordAuthenticationToken(userDetails, "", authorities);
     }
 
     private String sha256(String original) {

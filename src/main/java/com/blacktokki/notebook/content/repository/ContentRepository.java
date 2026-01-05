@@ -1,6 +1,7 @@
 package com.blacktokki.notebook.content.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,4 +23,6 @@ public interface ContentRepository extends JpaRepository<Content, Long>, JpaSpec
     List<Content> findByTypeAndParentIdOrderByIdDesc(Pageable pageable, ContentType type, Long parentId);
 
     Long countByTypeAndParentIdAndIdGreaterThan(ContentType type, Long parentId, Long id);
+
+    Optional<Content> findByTypeAndTitleAndUserId(ContentType type, String title, Long userId);
 }

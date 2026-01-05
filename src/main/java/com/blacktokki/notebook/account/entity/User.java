@@ -21,7 +21,9 @@ public class User {
     
     @Column(name = "us_username")
     private String username;
-    
+
+    @Column(name = "us_otp_secret")
+    private String otpSecret;
 
     public Long getId() {
         return id;
@@ -33,6 +35,10 @@ public class User {
 
     public String getUsername() {
         return username;
+    }
+
+    public Boolean useOtp() {
+        return otpSecret != null;
     }
 
 }

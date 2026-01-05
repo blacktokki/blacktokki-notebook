@@ -3,34 +3,82 @@ package com.blacktokki.notebook.content.service;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import lombok.RequiredArgsConstructor;
 
 import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.blacktokki.notebook.account.entity.User;
 import com.blacktokki.notebook.content.dto.ContentDto;
 import com.blacktokki.notebook.content.dto.ContentOrderDto;
-import com.blacktokki.notebook.content.dto.ContentQueryParam;
 import com.blacktokki.notebook.content.entity.Content;
 import com.blacktokki.notebook.content.entity.ContentOption;
 import com.blacktokki.notebook.content.entity.ContentType;
 import com.blacktokki.notebook.content.repository.ContentRepository;
-import com.blacktokki.notebook.core.dto.BaseUserDto;
+import com.blacktokki.notebook.core.service.UtilService;
 import com.blacktokki.notebook.core.service.restful.RestfulService;
 
 @Service
+@RequiredArgsConstructor
 public class ContentService extends RestfulService<ContentDto, Content, Long> {
     private final DiffMatchPatch dmp = new DiffMatchPatch();
 
+    private final UtilService utilService;
+
+    private Boolean otpChecked(Long userId) { 
+        if (utilService.getPatDescription() != null) {
+            return true;
+        }
+        Optional<Content> privacyOtpRequired = ((ContentRepository) getRepository()).findByTypeAndTitleAndUserId(ContentType.CONFIG, ContentType.CONFIG_PRIVATE_OTP_REQUIRED, userId);
+        if (privacyOtpRequired.isEmpty()) {
+            return true;
+        }
+        User user = privacyOtpRequired.get().getUser();
+        return checkOtpToken(user, privacyOtpRequired.get(), false);
+    }
+
+    private Boolean checkOtpToken(User user, Content privacyOtpRequired, Boolean isOnce) {
+        boolean otpRequired = privacyOtpRequired.getDescription().equals("true");
+        if (isOnce) {
+            if (!user.useOtp()) {
+                return otpRequired;
+            }
+            if (otpRequired) {
+                return utilService.getAuthorities().contains("OTP_ONCE");
+            }
+            return true;
+        }
+        else {
+            if (!user.useOtp()) {
+                return true;
+            }
+            if (otpRequired) {
+                return utilService.getAuthorities().contains("OTP");
+            }
+            return true;
+        }
+    }
+
     @Override
     public Predicate toPredicate(String key, Object value, Root<Content> root, CriteriaBuilder builder){
+        if (key.equals("withHidden")){
+            Long userId = utilService.getUser().id();;
+            Predicate predicate = builder.equal(root.get("userId"), userId);
+            if (value == null || (!(Boolean) value) || !otpChecked(userId)){
+                Predicate isNotHidden = builder.not(builder.or(
+                    builder.like(root.get("title"), ".%"), 
+                    builder.like(root.get("title"), "%/.%")));
+                return builder.and(predicate, isNotHidden);
+            }
+            return predicate;
+        }
         if(key.equals("withDeleted")){
             return (value != null && (Boolean)value) ? null:builder.isNull(root.get("deleted"));
         }
@@ -38,23 +86,30 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
         if (value == null){
             return null;
         }
-        if (key.equals("grandParentId")){
-            ContentQueryParam queryParam = new ContentQueryParam(null, (Long)value, null, true, null);
-            List<Long> parentIds = getList(queryParam, Sort.unsorted()).stream().map(v->v.id()).toList();
-            return root.get("parentId").in(parentIds);
-        }
         if (key.equals("types")){
             List<?> list = (List<?>)value;
             return root.get("type").in(list);
         }
-        if (key.equals("self")){
-            if ((Boolean)value){
-                Long userId = ((BaseUserDto)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).id();
-                return builder.equal(root.get("userId"), userId);
-            }
-            return null;
-        }
         return builder.equal(root.get(key), value);
+    }
+
+    @Override
+    public Boolean updatable(List<Content> contents) {
+        Content privacyOtpRequired = null;
+        for (Content c : contents) {
+            if (c.getType().equals(ContentType.CONFIG) && c.getTitle().equals(ContentType.CONFIG_PRIVATE_OTP_REQUIRED)) {
+                privacyOtpRequired = c;
+            }
+        };
+        if (privacyOtpRequired != null) {
+            Long userId = utilService.getUser().id();;
+            User user = privacyOtpRequired.getUser();
+            if (user.getId() != userId) {
+                return false;
+            }
+            return checkOtpToken(user, privacyOtpRequired, true);
+        }
+        return true;
     }
 
     @Override
@@ -68,9 +123,9 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
     }
 
     private void addPatDescription(ContentDto newDomain) {
-        Object patDescription = SecurityContextHolder.getContext().getAuthentication().getCredentials();
-        if (!patDescription.equals("")) {
-            newDomain.option().put(ContentOption.PAT_DESCRIPTION, patDescription);
+        String description = utilService.getPatDescription();
+        if (description != null) {
+            newDomain.option().put(ContentOption.PAT_DESCRIPTION, description);
         }
     }
 
