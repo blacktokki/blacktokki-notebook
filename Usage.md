@@ -110,11 +110,6 @@
 * Move or copy specific sections to other notes to reorganize content.
 * Preview changes before confirming to ensure safe editing.
 
-### 📦 Backup and Restore
-
-* Export all notes in Markdown or ZIP format for backup.
-* Restore notes from saved files when needed.
-
 ### 💾 Storage Options and Account Sync
 
 * Choose between local or cloud-based accounts for saving notes.
@@ -197,6 +192,11 @@
 * Each note's current schedule is visually represented as a timer bar, making it easy to see its current state.
 * Clicking a **timer tag** (e.g., `YYYY-MM-DD`) in a note opens a quick menu to adjust the schedule:
   * `+1 day`, `+1 month`, `Extend`, or `Delete`.
+
+### 📦 Archive (Backup and Restore)
+
+* Export all notes in Markdown or ZIP format for backup.
+* Restore notes from saved files when needed.
 
 ---
 
