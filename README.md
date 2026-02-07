@@ -16,6 +16,7 @@
 
 ## 연관 프로젝트
 * Account server(SpringBoot): [blacktokki-account](https://github.com/blacktokki/blacktokki-account)
+* Agent server(FastMCP) [blacktokki-notebook-agent](https://github.com/blacktokki/blacktokki-notebook-agent)
 * Frontend(React Native): [blacktokki-client](https://github.com/blacktokki/blacktokki-client/tree/master/apps/notebook)
     * [사용자 가이드](https://github.com/blacktokki/blacktokki-client/blob/master/apps/notebook/web/%EC%82%AC%EC%9A%A9%20%EB%B0%A9%EB%B2%95.md)
 
