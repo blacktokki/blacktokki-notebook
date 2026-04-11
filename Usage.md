@@ -57,21 +57,55 @@
 * Lists recently viewed notes in chronological order.
 * Click to revisit a note, or remove it from the list if no longer needed.
 
-### 🗂 Board
+---
 
-* Visualize and manage note sections as a Kanban/Scrum board.
-* You can create, modify, and delete boards.
-* Each **column** corresponds to a specific note (e.g., "To Do", "In Progress").
-* Each **card** is automatically generated from sections (e.g., H2, H3) within that note.
-* In **Scrum Boards**, **Rows** are automatically generated based on the level immediately above the card's header (Header Level - 1). This enables a more multi-dimensional organization of cards, such as by project stage or assignee.
-* Cards can be **dragged and dropped** to another column.
-* When a card is moved, its corresponding section is **physically moved** to the target note.
+## Usage Mode
 
-### 🗃 Archive
+You can adjust the app's complexity and features across 3 levels according to your workflow and purpose. You can change the mode setting in `Config > Note Settings > Usage Mode`.
 
-* Shows previous versions (snapshots) of notes.
-* Compare historical content over time, sorted by save date.
-* Useful for version control and restoring past content.
+### 🌱 Simple Mode
+The lightest memo environment providing only essential features. Useful when you want to focus on quick note-taking and reading, hiding unnecessary UI (extensions, changelog, etc.).
+
+### 📝 Note Mode
+Provides all knowledge management and document editing features except boards. Suitable for users who need full-fledged document writing, information structuring, and extension features.
+
+* **🗃 Archive**
+  * Shows previous versions (snapshots) of notes.
+  * Compare historical content over time, sorted by save date.
+  * Useful for version control and restoring past content.
+
+* **🔐 Private Mode**
+  * This feature allows you to hide sensitive information when viewing notes in public spaces or sharing your screen.
+  * **How to hide notes:** If a note title (or the title in a sub-path) starts with a `.` (dot), that note and its sub-notes are automatically treated as privacy-protected.
+      * Examples: `.SecretDiary`, `Project/.Confidential`, `PersonalInfo/.Finance`
+  * **Independent Tab List:** When Private Mode is active, the 'Tab List' on the Home screen switches to **'Tab List - Private Mode'**, keeping your private browsing history completely separate from the standard mode.
+  * **Enhanced Security (OTP):** By enabling 'Require OTP for Private Mode', the system will prompt for an OTP via a secure modal whenever you enter the mode or attempt to disable this security setting. (This feature is supported for online accounts with OTP enabled.)
+  * **Auto-unlock Timer:** If the 'Auto-unlock (10 mins)' option is enabled, Private Mode will automatically turn off after 10 minutes of inactivity to ensure your data remains secure.
+  * If you attempt to access a hidden note directly (e.g., via URL) while the mode is **Off**, a warning message will appear, and the content will remain hidden.
+
+### 🏢 Workspace Mode
+An integrated environment where you can use all features provided by the app without restrictions. Recommended when managing projects and schedules alongside memos and document management.
+
+* **🗂 Board**
+  * Visualize and manage note sections as a Kanban/Scrum board.
+  * You can create, modify, and delete boards.
+  * Each **column** corresponds to a specific note (e.g., "To Do", "In Progress").
+  * Each **card** is automatically generated from sections (e.g., H2, H3) within that note.
+  * In **Scrum Boards**, **Rows** are automatically generated based on the level immediately above the card's header (Header Level - 1). This enables a more multi-dimensional organization of cards, such as by project stage or assignee.
+  * Cards can be **dragged and dropped** to another column.
+  * When a card is moved, its corresponding section is **physically moved** to the target note.
+
+### 📊 Usage Mode Feature Comparison
+
+| Feature | 🌱 Simple Mode | 📝 Note Mode | 🏢 Workspace Mode |
+| :--- | :---: | :---: | :---: |
+| **Basic Note Writing/Editing** | ✅ Supported | ✅ Supported | ✅ Supported |
+| **Recent Notes (List View)** | ✅ Supported | ✅ Supported | ✅ Supported |
+| **TOC & Sub-notes** | ✅ Supported | ✅ Supported | ✅ Supported |
+| **Private Mode** | ❌ Unsupported | ✅ Supported | ✅ Supported |
+| **Extensions** | ❌ Unsupported | ✅ Supported | ✅ Supported |
+| **Changelog (Archive)** | ❌ Unsupported | ✅ Supported | ✅ Supported |
+| **Board (Kanban)** | ❌ Unsupported | ❌ Unsupported | ✅ Supported |
 
 ---
 
@@ -117,11 +151,6 @@
 * Choose between local or cloud-based accounts for saving notes.
 * Online sync keeps notes up-to-date automatically.
 
-### 🗃 Snapshot History and Comparison
-
-* Notes are automatically backed up when saved.
-* Compare current content with past versions through the Archive screen.
-
 ### 📌 Pin Tabs
 
 * Double-click or long-press the current tab or recently changed note to pin it to the tab list.
@@ -131,16 +160,6 @@
 
 * You can freely rearrange the order of items in the Tab List, by simply dragging them up or down.
 * The new order is applied immediately and saved automatically. Position frequently used notes at the top to enhance your workflow efficiency.
-
-### 🔐 Private Mode
-
-* This feature allows you to hide sensitive information when viewing notes in public spaces or sharing your screen.
-* **How to hide notes:** If a note title (or the title in a sub-path) starts with a `.` (dot), that note and its sub-notes are automatically treated as privacy-protected.
-    * Examples: `.SecretDiary`, `Project/.Confidential`, `PersonalInfo/.Finance`
-* **Independent Tab List:** When Private Mode is active, the 'Tab List' on the Home screen switches to **'Tab List - Private Mode'**, keeping your private browsing history completely separate from the standard mode.
-* **Enhanced Security (OTP):** By enabling 'Require OTP for Private Mode', the system will prompt for an OTP via a secure modal whenever you enter the mode or attempt to disable this security setting. (This feature is supported for online accounts with OTP enabled.)
-* **Auto-unlock Timer:** If the 'Auto-unlock (10 mins)' option is enabled, Private Mode will automatically turn off after 10 minutes of inactivity to ensure your data remains secure.
-* If you attempt to access a hidden note directly (e.g., via URL) while the mode is **Off**, a warning message will appear, and the content will remain hidden.
 
 ### 🔐 Personal Access Token (PAT) Management
 
@@ -212,6 +231,10 @@
   * `YYYY-MM-DD/YYYY-MM-DD`
   * `MM/DD`
   * `MM/DD ~ MM/DD`
+  * `YYYY/MM/DD`
+  * `YYYY/MM/DD ~ YYYY/MM/DD`
+  * `YYYY. M. D.`
+  * `YYYY. M. D.~YYYY. M. D.`
 * Use the date selector or calendar to browse notes by day.
 * View and edit dated sections directly from this screen.
 * Each note's current schedule is visually represented as a timer bar, making it easy to see its current state.
