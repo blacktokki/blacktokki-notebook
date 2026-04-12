@@ -1,5 +1,7 @@
 package com.blacktokki.notebook.content.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Optional;
 import org.jsoup.Jsoup;
@@ -11,6 +13,8 @@ import com.blacktokki.notebook.content.dto.WebPreviewDto;
 
 @Service
 public class OpenGraphService implements PreviewService<PreviewRequestDto, WebPreviewDto> {
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
     static public Optional<OpenGraph> ofNullable(String url, boolean ignoreSpecErrors) {
         try {
             return Optional.of(new OpenGraph(url, ignoreSpecErrors));
@@ -19,7 +23,7 @@ public class OpenGraphService implements PreviewService<PreviewRequestDto, WebPr
         }
     }
 
-    public static String getHtmlTitle(String urlString) {
+    private String getHtmlTitle(String urlString) {
         try {
             return Jsoup.connect(urlString)
                 .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/138.0.0.0 Safari/537.36")
@@ -35,9 +39,37 @@ public class OpenGraphService implements PreviewService<PreviewRequestDto, WebPr
         }
     }
 
+    private WebPreviewDto getYoutubePreview(String urlString) {
+        try {
+            String oembedUrl = "https://www.youtube.com/oembed?url=" + urlString + "&format=json";
+            
+            String jsonBody = Jsoup.connect(oembedUrl)
+                    .ignoreContentType(true)
+                    .execute()
+                    .body();
+
+            JsonNode root = objectMapper.readTree(jsonBody);
+            
+            String title = root.path("title").asText();
+            String author = root.path("author_name").asText();
+            String thumbnailUrl = root.path("thumbnail_url").asText();
+            
+            return new WebPreviewDto(title, "YouTube Video by " + author, urlString, thumbnailUrl);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
     @Override
-    public WebPreviewDto preview(PreviewRequestDto dto) {        
+    public WebPreviewDto preview(PreviewRequestDto dto) {
+        if (dto.query() != null && (dto.query().contains("youtube.com/watch") || dto.query().contains("youtu.be/"))) {
+            WebPreviewDto youtubePreview = getYoutubePreview(dto.query());
+            if (youtubePreview != null && youtubePreview.title() != null) {
+                return youtubePreview;
+            }
+        }
+
         Optional<OpenGraph> optional = ofNullable(dto.query(), true);
         if (optional.isPresent()){
             OpenGraph openGraph = optional.get();
