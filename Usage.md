@@ -60,7 +60,6 @@
 ---
 
 ## Usage Mode
-
 You can adjust the app's complexity and features across 3 levels according to your workflow and purpose. You can change the mode setting in `Config > Note Settings > Usage Mode`.
 
 ### 🌱 Simple Mode
@@ -94,6 +93,7 @@ An integrated environment where you can use all features provided by the app wit
   * In **Scrum Boards**, **Rows** are automatically generated based on the level immediately above the card's header (Header Level - 1). This enables a more multi-dimensional organization of cards, such as by project stage or assignee.
   * Cards can be **dragged and dropped** to another column.
   * When a card is moved, its corresponding section is **physically moved** to the target note.
+  * Single-clicking (tapping) a card navigates to the note view screen to read the paragraph, while double-clicking (double-tapping) opens the editing screen to modify its content immediately.
 
 ### 📊 Usage Mode Feature Comparison
 
