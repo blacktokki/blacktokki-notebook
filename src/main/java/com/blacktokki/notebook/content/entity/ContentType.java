@@ -6,7 +6,7 @@ import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
 public enum ContentType {
-    NOTE, SNAPSHOT, DELTA, BOOKMARK, BOARD, CONFIG, UNKNOWN;
+    NOTE, SNAPSHOT, DELTA, BOOKMARK, BOARD, NOTEBOOK, CONFIG, UNKNOWN;
     
     static public final String CONFIG_PRIVATE_OTP_REQUIRED = "private.otpRequired";
 }
