@@ -68,19 +68,13 @@ public class ContentService extends RestfulService<ContentDto, Content, Long> {
 
     @Override
     public Predicate toPredicate(String key, Object value, Root<Content> root, CriteriaBuilder builder){
-        if (key.equals("withHidden")){
-            Long userId = utilService.getUser().id();;
-            Predicate predicate = builder.equal(root.get("userId"), userId);
-            if (value == null || (!(Boolean) value) || !otpChecked(userId)){
-                Predicate isNotHidden = builder.not(builder.or(
-                    builder.like(root.get("title"), ".%"), 
-                    builder.like(root.get("title"), "%/.%")));
-                return builder.and(predicate, isNotHidden);
-            }
-            return predicate;
-        }
         if(key.equals("withDeleted")){
-            return (value != null && (Boolean)value) ? null:builder.isNull(root.get("deleted"));
+            Long userId = utilService.getUser().id();
+            Predicate predicate = builder.equal(root.get("userId"), userId);
+            if (value != null && (Boolean)value) {
+                return predicate;
+            }
+            return builder.and(predicate, builder.isNull(root.get("deleted")));
         }
         
         if (value == null){
