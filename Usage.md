@@ -65,7 +65,6 @@ You can adjust the app's complexity and features across 3 levels according to yo
 
 ### 🌱 Simple Mode
 The lightest memo environment providing only essential features. Useful when you want to focus on quick note-taking and reading, hiding unnecessary UI (extensions, changelog, etc.).
-* **View Mode & Board Restrictions:** View mode switcher options and board features (Kanban/Scrum) are not provided in simple mode. When viewing notes, the view mode is always fixed to **sub-note mode (card/grid view)**. Furthermore, board creation and navigation buttons are hidden in empty note screens and note headers.
 
 ### 📝 Note Mode
 Provides pure document writing and knowledge management features without board or private functionalities. Suitable for users who need structured information and extension features.
@@ -124,6 +123,12 @@ An environment where you can organize the app's features into distinct 'Notebook
 * The note editing screen can be freely converted to both WYSIWYG and Markdown methods with the `M↓` button.
 * Changes in one mode are reflected in real-time in the other.
 * Ideal for users who prefer visual editing or are familiar with markdown syntax.
+
+### 🏷️ YAML Frontmatter Preservation and Metadata Support
+
+* Automatically recognizes and protects **YAML Frontmatter (`--- ... ---`)** metadata blocks at the top of markdown documents.
+* During visual (WYSIWYG) editing, the frontmatter block is safely hidden to prevent accidental modification, and is preserved verbatim (100% untouched) upon markdown mode switching, note saving, and archive export.
+* Fully compatible with markdown files created in external tools like Obsidian or Jekyll that contain document metadata.
 
 ### 📑 Automatic Section Detection
 
@@ -261,6 +266,17 @@ An environment where you can organize the app's features into distinct 'Notebook
 ### 🎯 Random Note Access
 
 * Open a randomly selected note to discover content from a new perspective.
+
+### 📄 PDF Export (Default Style)
+
+* Export or print the current note (or selected sub-paragraph) as a PDF document with default clean styling optimized for printing.
+* Forces a clean white background and black text, optimized for printing and standard document sharing.
+* Click the print icon button at the top of the note viewing screen to export.
+
+### 📄 PDF Export (Theme Style)
+
+* Export the current note (or selected sub-paragraph) as a PDF document retaining your active theme colors (dark mode, skins, etc.).
+* Click the PDF icon button at the top of the note viewing screen to export.
 
 ---
 
