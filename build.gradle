@@ -32,7 +32,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.ai:spring-ai-starter-mcp-server-webmvc'
+	implementation 'org.springframework.ai:spring-ai-mcp-server-webmvc-spring-boot-starter'
 	implementation 'org.flywaydb:flyway-core:7.15.0'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'com.google.cloud:spring-cloud-gcp-starter:3.0.0'
