@@ -28,7 +28,7 @@ spring:
       max-lifetime: 1800000
     driver-class-name: com.mysql.cj.jdbc.Driver
   config:
-    import: classpath:datasource.yaml, classpath:secret.yaml
+    import: classpath:secret.yaml
   application:
     name: notebook
   output:
