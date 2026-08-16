@@ -42,6 +42,15 @@ spring:
       load-on-startup: 1
     pathmatch:
       matching-strategy: ant_path_matcher
+  ai:
+    mcp:
+      server:
+        name: blacktokki-notebook
+        version: 1.0.0
+        type: sync
+        webmvc:
+          sse-endpoint: /mcp/sse
+          message-endpoint: /mcp/message
 eureka:
   instance:
     hostname: localhost
