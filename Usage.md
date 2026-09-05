@@ -61,7 +61,9 @@
 ---
 
 ## Usage Mode
-You can adjust the app's complexity and features across 3 levels according to your workflow and purpose. You can change the mode setting in `Config > Note Settings > Usage Mode`.
+You can adjust the app's complexity and features across 3 levels according to your workflow and purpose.
+* **Header Dropdown Menu (Quick Switcher):** Click the app/notebook title in the top navigation header to open a dropdown popover, allowing you to quickly switch between registered notebooks, add a new notebook mode, return to note mode, or edit notebook settings.
+* **Config Menu:** You can also change the usage mode and manage notebooks in `Config > Note Settings > Usage Mode`.
 
 ### 🌱 Simple Mode
 The lightest memo environment providing only essential features. Useful when you want to focus on quick note-taking and reading, hiding unnecessary UI (extensions, changelog, etc.).
@@ -75,7 +77,12 @@ Provides pure document writing and knowledge management features without board o
   * Useful for version control and restoring past content.
 
 ### 📓 Notebook Mode
-An environment where you can organize the app's features into distinct 'Notebooks'. When creating a notebook, you can designate its sub-mode such as general workspace, private workspace, or private note.
+An environment where you can organize the app's features into distinct 'Notebooks'. When creating a notebook, you can designate its sub-mode such as general workspace, private workspace, or private note to work in isolated workspaces.
+
+* **Notebook Management via Header Dropdown:**
+  * Click the active notebook title in the top header to view the list of registered notebooks and switch between workspaces instantly.
+  * Click the three-dot menu (⋮) on any notebook item to edit its title, description, sub-mode, or delete it.
+  * Use the `+ Add Notebook Mode` button to quickly create a new notebook, or use `〈 Switch to Note Mode` to instantly return to standard Note Mode.
 
 * **🗂 Workspace**
   * A notebook type that includes features to visualize and manage note sections as Kanban/Scrum boards.
@@ -181,27 +188,6 @@ An environment where you can organize the app's features into distinct 'Notebook
 * You can directly generate and manage Personal Access Tokens (PATs) required for integrating with external services and applications.
 * New tokens can be issued in a dedicated section within the Account Edit modal; for security reasons, the token value is displayed only once immediately after issuance, so it must be copied and stored in a safe place right away.
 * You can view the list of currently active tokens and their expiration dates, and maintain security by deleting tokens that are no longer in use at any time.
-
-### ✨ MCP server integration
-
-* The issued personal access token can be linked to Blacktokki Notebook’s MCP server.
-* The MCP setting method based on Claude Desktop is as follows:
-```json
-{
-  "mcpServers": {
-    "blacktokkiNotebook": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote",
-        "https://blacktokki.kro.kr/agent/sse",
-        "--header",
-        "Authorization: Bearer ***"
-     ]
-    }
-  }
-}
-```
 
 ---
 
