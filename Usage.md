@@ -247,52 +247,77 @@ An environment where you can organize the app's features into distinct 'Notebook
 * Clicking a **timer tag** (e.g., `YYYY-MM-DD`) in a note opens a quick menu to adjust the schedule:
   * `+1 day`, `+1 month`, `Extend`, or `Delete`.
 
-### 🕸️ Ontology
+### 🕸️ Knowledge Graph
 
-- Visualizes your knowledge base as a VOWL-inspired ontology graph:
-  - **1. Class (Circle Nodes)**:
-    Categorizes entities in the knowledge base and organizes them into inheritance (`subClassOf`) hierarchies:
-    - **Built-in Class Hierarchy (Blue)**:
-      - **`Note Class`**: Single base class representing general notes. All ordinary Note instances belong to this class.
-      - **`Connected Paragraph Class`**: Base class classifying paragraph instances that serve as the source or target of directed cross-document links (`references`).
-    - **Board Class Hierarchy (Green)**:
-      - **`Board Card Class`**: Top-level abstract card class for each board.
-        - ↳ **`Board Card Status Subclass`**: Subclass inheriting from the Board Card class (`subClassOf`), defined per board column/status as `{board name}: {status name}`. Individual cards are instantiated (`instanceOf`) from these status subclasses.
-    - **Topic Class Hierarchy (Magenta)**:
-      - **`Topic: {keyword} (Generic Topic Superclass)`**: Top-level topic superclass combining note titles, card types, and heading distinctions. Formed only when its independent direct-subclass evidence plus distinct source notes of directly assigned members totals at least three, or it has at least two independent direct-subclass supports. Multiple paragraphs or cards from the same note count as one source note. Specialized classes with exactly the same member-instance set and source-note set remain separate graph classes but count as one independent subclass support for this threshold.
-        - ↳ **`Note Title: {keyword}`**: Subclass (`subClassOf`) classifying shared keywords found in the leaf titles of notes (excluding `/`-separated parent paths), formed when member instances total at least three.
-        - ↳ **`Card Type: {parent heading title}`**: Subclass (`subClassOf`) based on the nearest parent heading title of a card, with card instances connected directly. (The source parent heading is excluded from heading title class candidates.)
-        - ↳ **`H{N} Title: {keyword}`**: Subclass (`subClassOf`) classifying heading keywords that appear across at least three distinct notes at the same heading level (H1~H6).
-        - ↳ **`Link: {link name or keyword}`**: Topic class grouping source notes or paragraphs for both internal-note and external links by a normalized full link name, a shared keyword, or a shorter link name contained in another. It is formed only when the derived name or keyword appears across at least three distinct notes. It becomes a subclass (`subClassOf`) of a matching generic Topic when available, otherwise it remains a standalone top-level topic class. When this Link-class threshold is not met, its source notes or paragraphs still participate as direct evidence for a matching generic Topic and connect directly via `instanceOf` if that Topic meets its own creation threshold. External links participate in this name-based classification but do not create `references` edges because they have no target note node.
-      - _Rules_: Numeric-only keywords never create Topic classes. When a specialized class exists for a keyword, instances are not duplicated into the generic class; instead, the specialized class connects via `subClassOf`, enabling polymorphic inference. A link written inside a heading belongs to both its `H{N} Title` class and its `Link` class because these represent structural and linking aspects respectively. Both memberships are preserved, while identical knowledge instances and source notes are deduplicated in statistics and the two coextensional classes provide only one independent support toward generic Topic creation.
-  - **2. Instance (Circle Nodes)**:
-    - **Note Instance (Blue Double Ring Circle)**: Independent general notes shown as `Instance (Note)` in the legend and preview (`instanceOf Note`).
-    - **Card Instance (Green Circle)**: Concrete individual paragraph items instantiated from the board status subclasses (`instanceOf`).
-    - **Paragraph Instance (Purple Circle)**: Each paragraph has one hierarchical `partOf` relation to its nearest parent paragraph, or to its containing note when no parent paragraph exists. Its visibility can be changed with the paragraph toggle in the top toolbar.
-    - **Connected Paragraph Instance (Orange Circle)**: Paragraphs directly involved in references or Title Keyword Class membership. They keep the ordinary hierarchical `partOf` relation and, when a parent paragraph exists, add a dashed `connectedPartOf` relation directly to the containing note. They remain visible independently of the ordinary paragraph toggle. A paragraph at either end of an actual `references` relation belongs to the Link-connected Paragraph class. A paragraph connected only through Title Keyword Class membership remains classified by that title-keyword class and is not added to the Link-connected Paragraph class.
-  - **3. Property (Schedule, Internalized Sections & Literal Rectangles)**:
-    - Managed as node data properties and literal nodes (yellow rectangles):
-      - **Schedule**: TimerTag dates (e.g. `YYYY-MM-DD`)
-      - **Sections**: Sub-headers of cards and notes are internalized as structural data properties and displayed in the preview sheet's table of contents, allowing instant jump navigation.
-  - **4. Relation (Directed Edges)**:
-    - **`subClassOf` (Blue Arrow)**: Subclass hierarchy where a child class inherits from a parent class (Status subclass → Board Card class, specialized topic subclass → generic Topic superclass).
-    - **`instanceOf` (Blue Arrow)**: Card and note instances instantiated from classes.
-    - **`references` (Blue Arrow)**: Directed links from `_NOTELINK`. A link inside a paragraph or card uses that paragraph or card as its source, and a specified target paragraph is resolved before its note.
-    - **`notePartOf` (Gray Arrow)**: A `partOf` hierarchy from a child note to its parent note.
-    - **`cardPartOf` (Yellow Arrow)**: A `partOf` hierarchy from a card to its nearest parent paragraph or containing note.
-    - **`paragraphPartOf` (Yellow Arrow)**: A `partOf` hierarchy from a paragraph to its nearest parent paragraph or containing note.
-    - **`connectedPartOf` (Orange Dashed Arrow)**: A special `partOf` relation that also connects a connected paragraph with a parent paragraph directly to its containing note.
-    - **Inferred relations (Purple Dashed Arrows)**: Enable the Inferred toggle to inspect logical class inheritance and inherited instance membership.
-    - The bottom legend places node entries on the first row and the currently displayed relation types and their counts on the second row. Select its `Legend` header to collapse the contents into a compact bottom-left control or expand them again. Built-in, Board, and Topic classes have separate colors and counts, and Note instances appear before Card instances. The view toggles are ordered as `Paragraphs` → `Datatypes`.
-  - **5. Validation & Inference**:
-    - **Application Referential Integrity Check**: Detects broken links pointing to non-existent notes or paragraphs. This is a scoped application validation, not a complete OWL consistency proof.
-    - Click the top **Validation HUD Badge** (`Validation Passed`, `Validation Warning`, or `Validation Error`) to inspect results and locate affected nodes.
-- Independent notes with empty content are automatically excluded from both the graph and Topic keyword class candidate calculation. An existing empty note is retained as a skeletal Note instance when a non-empty note references it or needs it as a parent, but it is still excluded from Topic candidates. A note-level link to that skeletal note is valid; an explicit paragraph link remains invalid because the empty note has no paragraph. A board note is retained as a structural parent when it contains non-empty column paragraphs and its title remains a Topic candidate.
-- A Note instance that shares a board name and its paragraphs are built only from the actual note content. Board configuration descriptions are not interpreted as note paragraphs, and board-column paragraphs belong to their actual column Note instance rather than directly to the board-root Note.
-- **Topic Virtual Note**: When no physical note exists with the same name as a Generic Topic Superclass or standalone Topic class, the class displays an outer dashed 🪐 ring in the graph and presents an `[🪐 Open Virtual Note]` action button in its preview sheet. Selecting this button opens a Markdown viewer that indexes the topic's distributed paragraphs, cards, subclasses, and source notes in real time without generating a separate knowledge-by-subclass section. Another top-level topic is listed as related only when the sum of shared knowledge instances and shared source notes is at least three; explicit references are shown only as auxiliary evidence and do not count toward this threshold. The related-topic count and matching link-occurrence count appear in each Topic-list summary and the virtual-note modal's top statistics. The topic index lists each matched internal or external link beneath **Links**, rather than treating its source paragraph as an aggregated paragraph. Link-only evidence contributes its source note once but does not also count as shared knowledge, preventing a link from duplicating related-topic evidence. In Related Topics, `📝` identifies a link to a physical note and `🪐` identifies a link to another virtual note. Users can copy the synthesized content or click **[Save as Real Note]** to materialize it as an ordinary permanent note in one click. Topics that already have a real note of the same name navigate directly to that note and are excluded from virtual note derivation.
-- **Ontology Topic Screen**: A dedicated screen listing top-level Generic Topic Superclasses and standalone Topic classes using `NoteListSection`. Users can switch seamlessly between the Graph View and Topic List via the toolbar. Tapping any item directly navigates to the physical note (`NotePage`) if a note with the same name already exists, or opens the synthesized virtual note viewer (`VirtualNoteModal`) if no physical note exists, allowing immediate reading, copying, or materialization into a permanent note.
-- Smooth pan and zoom controls with cursor-centered zoom and automatic screen fitting. Global node density still follows the spacing control, while each Topic hierarchy is drawn more tightly around its top-level Topic class. Spacing and zoom controls align without an empty upper gap when the viewport is wide and move below the top view toggles on narrower screens, avoiding the bottom legend and detail sheet.
-- Select **Export RDF** to extract the current notebook's classes, instances, relations, properties, application-validation results, and inference provenance as an RDF 1.1 Turtle (`.ttl`) file. Topic class IDs depend on their normalized keyword and scope, so adding or removing members does not change their IRIs. Title-keyword classes are exported as instances of the class category `TopicClass` and subclasses of `KnowledgeItem`, so their members are not misclassified as separate `Topic` individuals. Cards and paragraphs retain their own titles, paragraph paths, and containment hierarchy. The validation report is a snapshot of the current application validation, not an independent SHACL recomputation. The semantic profile is an RDF 1.1 graph with RDFS entailment and selected OWL, SHACL, Dublin Core, and PROV-O vocabulary; the combined export does not claim OWL 2 DL conformance. Resources use deployment-independent `urn:blacktokki:notebook:` IRIs. Web downloads the file, while mobile opens the system share sheet.
+Visualizes relationships among notes, boards, paragraphs, cards, and external links as a semantic knowledge graph, providing relation exploration, graph validation, and RDF Turtle export.
+
+* **Knowledge Graph Access & Validation Badge**:
+  * Open the feature from the **Knowledge Graph** item in the Drawer or Discovery menu.
+  * A badge (`CountBadge`) on the menu button displays the number of detected graph validation issues (referential integrity and isolated entity violations).
+* **Navigation Toolbar**:
+  * Select `[Usage >]` in the top toolbar to navigate to this guide.
+* **Graph Exploration & Viewport Controls**:
+  * Pan by dragging the canvas; zoom using the mouse wheel, trackpad pinch, or the top-right Zoom HUD (`+`, current percentage `%`, `-`, `Fit to screen`).
+  * Adjust node spacing density from 0.4x to 2.5x using the `Spacing` HUD (`-`, current density `x`, `+`); clicking the middle density button resets it to 1.0x.
+* **Node Preview Sheet & N-hop Range**:
+  * Selecting a node opens a preview sheet at the bottom to inspect details and set the related-node scope (N-hop).
+  * The N-hop range offers `1`, `2`, and `All`.
+  * When a node is selected, direct 1-hop edges are highlighted with bold lines (2.2px), arrows, and relation label boxes, N-hop edges are highlighted with lines (1.8px) and arrows, and non-focused nodes and edges are dimmed.
+  * Instance previews show clickable category (`Category` / `rdf:type`) chips, and topic classes show `Parent Categories` and `Child Categories` chips for quick navigation.
+  * Shared board paragraphs originating from multiple notes display `Source Notes` chips to navigate to each source document, cards show `Sub-sections` chips, and note instances display YAML frontmatter property chips (`schedule`, `updated`, etc.).
+  * Regular nodes (notes, paragraphs, cards, external links) display a `[Move]` button to navigate to the note viewer or open the external browser, while topic classes provide an `[Open Virtual Note]` button for detailed concept inspection. (Multi-origin board paragraphs navigate via their individual `Source Notes` chips instead.)
+* **View Options**:
+  * The top toolbar toggles display their active state and item counts:
+    * `Inferred (n)`: Toggles logical class inheritance (`inferred subClassOf`) and instance membership (`inferred instanceOf`) as purple dashed edges. (Displays a notification banner for 3 seconds if no inferred relations exist.)
+    * `Paragraphs (n)`: Shows or hides ordinary paragraph nodes. (Hidden by default; appears when ordinary paragraphs exist.)
+    * `Ordinary External Links (n)`: Shows or hides external links without other relations. (Hidden by default; appears when external links exist.)
+    * `Datatypes (n)`: Visualizes note YAML frontmatter properties as literal rectangle nodes and datatype property edges. (Hidden by default; appears when properties exist.)
+    * `Label: Intuitive terms / Label: RDF/OWL terms`: Switches displayed labels between friendly terms and semantic web standards (RDF/OWL).
+* **Legend & Validation Modal**:
+  * The bottom legend displays currently shown node types (first row) and relation types (second row) with counts and can be expanded or collapsed.
+  * On the canvas, the selected node is highlighted with an orange solid ring, hovered nodes with a blue solid ring, virtual-note-eligible topic nodes with a magenta dashed ring, and violating nodes with a red dashed ring.
+  * Select the top validation badge (`Validation Passed`, `Validation Warning (n)`, or `Validation Error (n)`) to open the validation modal.
+  * Inspect referential integrity (unknown note/paragraph links, empty parent notes) and isolated entity issues (unconnected standalone notes), and select an affected node chip to jump directly to that node on the graph.
+* **Export RDF**:
+  * Select `[Export RDF]` in the graph screen toolbar to export the current mode's complete knowledge graph (classes, instances, relations, properties, validation snapshot, inference provenance) as an RDF 1.1 Turtle (`.ttl`) file. Web downloads the file; mobile opens the share sheet.
+  * The export includes `owl:Class`, `owl:NamedIndividual`, `rdf:type`, `rdfs:subClassOf`, `dcterms:isPartOf`, `dcterms:references`, `rdfs:seeAlso`, PROV-O inference provenance, and SHACL application validation snapshots. (Represents an application snapshot profile rather than an assertion of complete OWL 2 DL consistency.)
+* **Entity Model & Empty Note Handling Rules**:
+  * Notes with no content are normally omitted from the graph and topic candidates.
+  * An existing empty note is retained as a structural skeletal Note instance only when directly referenced or used as an immediate parent by a non-empty note. (Skeletal notes remain excluded from topic keyword candidates.)
+  * Board paragraphs sharing the same name within a board are unified into a single `BOARD_PARAGRAPH` instance across multiple column origins, and card headings are modeled solely as `CARD` instances without duplicating paragraph nodes.
+
+### 📑 Topic Notes
+
+Aggregates scattered headings and cards across notes and boards into topic lists, providing real-time synthesized Topic Virtual Notes for reading and saving.
+
+* **Topic Notes Access**:
+  * Open the feature from the **Topic Notes** item in the Drawer or Discovery menu.
+* **Navigation Toolbar**:
+  * Select `[Usage >]` in the top toolbar to navigate to this guide.
+* **Note Page Topic Tags**:
+  * Topic tags related to the current note are displayed at the top of the note viewing screen.
+  * Topics whose keyword matches the note title (or leaf title), whose source notes include the current note, or whose keyword (2+ characters) appears in the note's headings or descriptions are listed in descending order of relation count.
+  * When two or fewer topics exist, individual keyword chips are shown; when three or more topics exist, they are collapsed into a `Topic n` chip, which expands to reveal the full topic button list under a `Topic (n) ▲` header upon clicking.
+  * Selecting a topic tag immediately opens its Topic Virtual Note modal.
+* **Topic Formation & Hierarchy Rules**:
+  * Keywords extracted from note leaf titles, card/paragraph headings, and external-link display names form a single unified topic hierarchy.
+  * A shared keyword must appear across at least three distinct source notes; keywords shorter than two characters, numeric-only keywords, and ordinary body text are excluded.
+  * When an external link's visible name is a URL pattern, its entire hostname (domain) is treated as a single keyword.
+  * When topic B's source notes form a proper subset of topic A's source notes (`B ⊂ A`) and parent topic A has two or more such child topics, an explicit inheritance (`subClassOf`) relationship is established between them.
+* **Topic List Screen**:
+  * Filter topics by `All (n)`, `Real notes only (n)`, or `Virtual notes only (n)`. (Real note status is determined by whether an existing note matches the complete topic keyword case-insensitively; matching only the leaf name in a `/` path is not considered a match.)
+  * Topics are sorted descending by the sum of links, paragraphs, cards, and source notes (alphabetical for ties), displaying the subtitle `Links n · Paragraphs n · Cards n · Source Notes n · Related Topics n`, with ` (Child Topics n)` appended only when direct child topics exist.
+  * Selecting any topic in the list opens its Topic Virtual Note modal regardless of whether a matching real note exists.
+* **Topic Virtual Notes**:
+  * Open a synthesized virtual note modal by selecting an item from the topic list, clicking a topic tag in a note page, or clicking a related topic link inside another virtual note. (Can also be opened via `[Open Virtual Note]` in the Knowledge Graph preview sheet.)
+  * The top bar summarizes statistics for Links, Paragraphs, Cards, Source Notes, and Related Topics.
+  * The document body synthesizes a Topic Index (links, paragraphs, board cards, source notes) and Related Topics sharing at least 3 distinct source notes (grouped into Parent Topics, Child Topics, and Other Related Topics). Topics with a matching real note are marked with a `📝` prefix, and common source notes and reference counts are displayed alongside each topic.
+  * Selecting a related topic link switches the modal content to that topic in place without a separate internal back button.
+  * Opening a real note from a body link or bottom action automatically restores the virtual note modal upon returning back to the screen.
+  * Bottom action buttons:
+    * `[Copy]`: Copies the synthesized Markdown content to the clipboard.
+    * `[Go to Real Note]`: Opens the original note when a real note with the matching full title exists.
+    * `[Save as Real Note]`: Saves the synthesized virtual note as a formal note and navigates to it when no real note with the matching full title exists.
 
 ### 📦 Archive (Backup and Restore)
 
