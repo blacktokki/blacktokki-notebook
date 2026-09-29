@@ -259,8 +259,9 @@ Visualizes relationships among notes, boards, paragraphs, cards, and external li
 * **Graph Exploration & Viewport Controls**:
   * Pan by dragging the canvas; zoom using the mouse wheel, trackpad pinch, or the top-right Zoom HUD (`+`, current percentage `%`, `-`, `Fit to screen`).
   * Adjust node spacing density from 0.4x to 2.5x using the `Spacing` HUD (`-`, current density `x`, `+`); clicking the middle density button resets it to 1.0x.
+  * Members and descendants are placed outward from their Note or Board class through membership and containment. External links spread around the Note or Board class of the citing content, including when ordinary external links are shown. The External Link class stays near the Note class, or between the Note class and citing Board classes when board links are present. It is not a layout hub.
 * **Node Preview Sheet & N-hop Range**:
-  * Selecting a node opens a preview sheet at the bottom to inspect details and set the related-node scope (N-hop).
+  * Selecting a node moves it to the center of the visible area above the bottom preview sheet without changing zoom. Dragging or zooming stops the automatic movement; the sheet lets you inspect details and set the related-node scope (N-hop).
   * The N-hop range offers `1`, `2`, and `All`.
   * When a node is selected, direct 1-hop edges are highlighted with bold lines (2.2px), arrows, and relation label boxes, N-hop edges are highlighted with lines (1.8px) and arrows, and non-focused nodes and edges are dimmed.
   * Instance previews show clickable category (`Category`) chips for quick navigation.
@@ -268,7 +269,6 @@ Visualizes relationships among notes, boards, paragraphs, cards, and external li
   * Nodes display a `[Move]` button to navigate to the note viewer or open the external browser. (Multi-origin board paragraphs navigate via their individual `Source Notes` chips instead.)
 * **View Options**:
   * The top toolbar toggles display their active state and item counts:
-    * `Inferred (n)`: Toggles inferred category hierarchy and membership as purple dashed edges. (Displays a notification banner for 3 seconds if no inferred relations exist.)
     * `Paragraphs (n)`: Shows or hides ordinary paragraph nodes. (Hidden by default; appears when ordinary paragraphs exist.)
     * `Ordinary External Links (n)`: Shows or hides external links without other relations. (Hidden by default; appears when external links exist.)
 * **Legend & Validation Modal**:
