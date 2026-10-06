@@ -278,7 +278,7 @@ Visualizes relationships among notes, boards, paragraphs, cards, and external li
 
 ### 📊 Topic Dashboard
 
-Automatically infers **board candidates (`inferBoardCandidates`)** from note path hierarchies (`ParentNote/ChildNote`) and heading structures, allowing you to browse and manage cards across virtual topic boards without creating explicit board entities.
+**Topic boards** are virtual boards that automatically visualize your existing notes into Kanban and Scrum boards (columns and cards) based on child note paths and heading structures. Browse and organize cards across a board matrix without manually creating explicit board entities.
 
 * **Virtual Topic Boards from Candidates**:
   * Maps direct child notes to columns and heading (`H2`–`H6`) paragraphs to cards to formulate optimal Kanban (`KANBAN`) or Scrum (`SCRUM`) board layouts.
