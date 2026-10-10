@@ -45,12 +45,14 @@
 * Displays the note title, content, and structured section list.
 * The section list is auto-generated from headings (H1–H6); clicking a section jumps to its position.
 * Use top buttons to edit the note, rearrange sections, or view edit history.
+* Clicking a URL-encoded relative file link such as `[Document](../folder/Document%20Title.md)` opens the target document relative to the current note's folder.
 
 ### ✏️ Note Editing
 
 * A flexible editor that supports both markdown and WYSIWYG (visual) modes.
 * Allows free editing with automatic or manual saving.
 * Internal and external link autocompletion is supported.
+* `[` autocomplete and pasting internal links generate URL-encoded relative `.md` links from the current note, preserving paragraph and section information.
 
 ### 🗂 Recent Notes
 
@@ -64,6 +66,7 @@
 You can adjust the app's complexity and features across 3 levels according to your workflow and purpose.
 * **Header Dropdown Menu (Quick Switcher):** Click the app/notebook title in the top navigation header to open a dropdown popover, allowing you to quickly switch between registered notebooks, add a new notebook mode, return to note mode, or edit notebook settings.
 * **Config Menu:** You can also change the usage mode and manage notebooks in `Config > Note Settings > Mode Settings`. If no notebook mode has been created, selecting Notebook Mode will automatically open the modal to create a new notebook.
+* Refreshing in local mode restores the last selected usage mode and notebook. Deleted notebooks and locked private notebooks return to Note Mode.
 
 ### 🌱 Simple Mode
 The lightest memo environment providing only essential features. Useful when you want to focus on quick note-taking and reading, hiding unnecessary UI (extensions, changelog, etc.).
@@ -104,6 +107,7 @@ An environment where you can organize the app's features into distinct 'Notebook
   * Each **column** corresponds to a specific note (e.g., "To Do", "In Progress").
   * Each **card** is automatically generated from sections (e.g., H2, H3) within that note.
   * In **Scrum Boards**, **Rows** are automatically generated based on the level immediately above the card's header (Header Level - 1). This enables a more multi-dimensional organization of cards.
+  * Scrum items in the board list display note, named row, and card counts. Rows with the same title are counted once, and the unnamed default row is excluded.
   * Cards can be **dragged and dropped** to another column.
   * When a card is moved, its corresponding section is **physically moved** to the target note.
   * Single-clicking (tapping) a card navigates to the note view screen, while double-clicking (double-tapping) opens the editing screen.
@@ -163,7 +167,7 @@ An environment where you can organize the app's features into distinct 'Notebook
 
 * Move entire notes or specific sections to a different title or location to reorganize your knowledge structure.
 * **Move sub-notes**: When moving a parent note, you can choose to seamlessly move all of its nested sub-notes together.
-* **Update backlinks**: Automatically find and update all internal links pointing to the moved note or section across all your other notes, preventing broken links.
+* **Update backlinks**: Automatically find and update all internal links pointing to the moved note or section across all your other notes, preventing broken links. Relative `.md` and `.markdown` links are also found and updated using the folder of the note containing each link.
 * **Preview changes**: Safely preview the structural changes and text diffs before confirming the move. If the target note already exists, you will be warned and can choose to overwrite.
 
 ### 💾 Storage Options and Account Sync
@@ -192,6 +196,29 @@ An environment where you can organize the app's features into distinct 'Notebook
 ---
 
 ## Extension Features
+
+### 🧩 Extracted Templates
+
+- Enable **Extracted Templates** in the current notebook's Extension Settings, then open it from the home menu or Drawer. It also works in Note Mode. The introductory text and **Usage** button share the top row; the button opens this section of the user guide.
+- Opening the screen automatically discovers templates from notes with similar headings, labelled fields and table columns. Returning to the notebook refreshes the sources. No search button, manual example selection or separate inference step is needed.
+- The **Extraction criteria** switch in the catalog header is off by default, selecting **Whole-note structure**. On selects **Whole notes + shared table forms**, including bold-cell header recognition. Changing the switch refreshes the catalog. The switch and template choices pause briefly during extraction, and the count shows `…` without a separate loading card. Return to the list to change criteria while previewing or writing. Date placeholders, notebook-root exclusion, splitting rules, and the two-thirds similarity boundary apply in both modes.
+- All matching structural groups are offered; the former limit of twelve groups no longer hides less frequent document patterns.
+- Documents with different overall sections can still provide a shared table form. If a named column layout occurs in at least two distinct notes and includes a source missed by whole-document matching, that table structure becomes an additional template. Surrounding document-specific headings are excluded, while common row labels and nested tables remain. Repeating a table within one note does not count as multiple sources; unnamed data columns do not qualify for this recovery step. Fully bold first-row cells also serve as table headers when an import uses ordinary cells instead of header cells.
+- Each group is compared in full. Structures present in at least 60% of its notes (and at least two notes) form a reusable template. `▤ number` shows how many similar notes contributed.
+- When a template's **Similar notes** have multiple top-level folders, it is split only if every folder contains at least two notes. If any folder contains one note, the entire original template is retained. Splits use the original structural name, such as `Agenda`, `Agenda (2)`, without a folder prefix. Loose notes form a separate template when at least two remain; a single loose note keeps the whole template together. A template that originally has one top-level folder includes that folder's name, such as `Team meetings · Agenda`; a template without folders keeps its original name. Each split retains the common inferred body; note previews and title patterns use that template's own sources.
+- Discovered templates are compared again by headings, fields, table columns and rows, lists, and standalone dates. Candidates with structural similarity of at least **2/3 (66⅔%)** appear in the same card. The calculation uses exactly `2 / 3`, so 66% is below the boundary. Every pair within a group meets that threshold, with no hierarchy or subgroups. `▦ 2` and `≈ 80%` mean two templates with a minimum similarity of approximately 80%. Each candidate retains its own body and source notes.
+- The catalog uses a vertical list with a short structural outline for each candidate. A single template appears directly without a group header; only multiple similar templates share a group card. Groups of different heights do not leave gaps beside other items. The top **list** and **preview** buttons switch stages. **New note** stays disabled in the catalog and preview, then becomes active when the right card's **New note** button opens the writing stage. Visible captions, keyboard focus and selected states identify each action without hover tooltips.
+- Headings, table columns and repeated row labels, and list types become a Markdown skeleton with `{{name}}` placeholders. Source YAML metadata, links and body values are excluded. Review row labels to ensure they represent structure. Nested tables become standalone Markdown tables labelled with their original row context.
+- Standalone calendar labels such as `05-25 Mon`, `2026-05-25` or Korean month/day labels become `{{ Date }}` placeholders. Dates between repeated tables retain their original position, and subsequent dates use distinct fields such as `{{ Date (2) }}`. Bold date labels remain bold; date headings keep their child sections. Actual historical dates are excluded. This supports daily scrum and other repeated date-and-table layouts across notebooks.
+- Select a template to see a selection panel on the left and one shared preview on the right. The left card uses one list: the first item shows a distinct template icon and the template name; top-level source folders follow with the same row layout. There is no separate **Similar notes** heading or total count. Choose the template item or an individual source note to change the preview; only one is visible at a time. The right card's heading shows the current template or note name. The current item is highlighted. Narrow screens stack the panels and move to the preview after selection. Scroll areas reach the left and right edges of each card, with reading space inside the scroll area. Use **Open note** in the source preview to visit the ordinary note screen.
+- **Similar notes** follow the title-path hierarchy, such as `Team meetings/Weekly/Note name`. Expand a path to select an individual original note. The list has no search field.
+- The current notebook and its selected local folder name are excluded from top-level group labels, template naming, and splitting. If that name wraps source paths, its child paths are grouped instead. Original note paths are retained for opening notes and creating notes from title patterns; actual notebook items are excluded from discovery.
+- The action beside the right card's heading changes with its content: **New note** for a template, **Open note** for a source note. Choose the blue **New note** button in the template preview to open the writing stage. The title form and preview sit together on wide screens and stack on narrow screens. The structure and placeholders are visible before entering a note title. The preview reaches the card's bottom edge without a padded strip beneath it.
+- In the writing form, **Title template** offers several patterns inferred from the names of this body template's source notes. Similar names in the same path retain common text and replace differences with `{{ Date }}`, `{{ Number }}` and `{{ Keyword }}`. For example, dated weekly meetings produce `Team meetings/{{ Date }} Weekly meeting`. Choose a pattern or the **✎** option to enter a title directly. If no repeating pattern is found, enter a title directly.
+- Fill all title fields to see the resulting note title including its original folder path. Fields with the same name share their value across the title and body templates. Optional body fields start collapsed under `{{ }} · number`; expand to fill them. Use the **Preview** button beside the title form heading to preview the new note, edit it in the normal editor and save it. Unfilled body fields remain as placeholders. Nested paths such as `Folder/New note` are supported; creation refuses to replace an existing note with the same title.
+- The top **Preview** button returns to source comparison while retaining the writing draft. The **list** button returns to the catalog to select another template. Templates are rebuilt from the current notebook without template editing, a saved library or import/export controls.
+- Structural analysis runs on the device without an external AI call. Semantic equivalence between differently worded sections and unstructured prose is not inferred automatically; adjust the new note in its preview when needed.
+- Analysis and similar-note lookup stay within the current account, notebook and privacy mode. Hidden notes are excluded in normal mode. Other notebooks automatically derive templates from their own note structures.
 
 ### ⚡ Quick Memo
 * A feature that allows you to immediately add sub-paragraphs by selecting a specific note and a parent paragraph.
@@ -244,8 +271,13 @@ An environment where you can organize the app's features into distinct 'Notebook
 
 ### 🕸️ Knowledge Graph
 
+Local notebooks read file contents on each refresh and compare checksums, reusing conversions of unchanged files to speed up repeated loading of large folders. The knowledge graph reuses note paragraph analysis. On an active screen, notes and boards refresh every 30 seconds; external edits, additions, renames and deletions appear on the next read, including edits that preserve both the file modification time and byte size.
+
+Large graphs update their layout incrementally and animate between layout steps so you can keep panning and zooming while nodes settle. During movement, the canvas temporarily uses a lower resolution, tiny nodes appear as points, and relationship decorations are simplified. All nodes and relationships remain available; selected, hovered, and warning nodes retain their detailed indicators. The original resolution, node shapes, and relationship decorations return after movement stops. Edge highlights then start on large graphs.
+
 Visualizes relationships among notes, boards, paragraphs, cards, and external links as a knowledge graph, providing relation exploration and graph validation.
 
+* **Internal Links**: Relative `.md` and `.markdown` links are resolved from the source note's folder to display note and paragraph references. Directly referenced empty notes are also included in the graph.
 * **Knowledge Graph Access & Validation Badge**:
   * Open the feature from the **Knowledge Graph** item in the Drawer or Discovery menu.
   * A badge (`CountBadge`) on the menu button displays the number of detected graph validation issues (referential integrity and isolated entity violations).
@@ -255,6 +287,7 @@ Visualizes relationships among notes, boards, paragraphs, cards, and external li
   * Pan by dragging the canvas; zoom using the mouse wheel, trackpad pinch, or the top-right Zoom HUD (`+`, current percentage `%`, `-`, `Fit to screen`).
   * Adjust node spacing density from 0.4x to 2.5x using the `Spacing` HUD (`-`, current density `x`, `+`); clicking the middle density button resets it to 1.0x.
   * Members and descendants are placed outward from their Note or Board class through membership and containment. External links spread around the Note or Board class of the citing content, including when ordinary external links are shown. The External Link class stays near the Note class, or between the Note class and citing Board classes when board links are present. It is not a layout hub.
+  * All `Note containment` edges keep the same length, and all `Paragraph containment` edges keep the same length within their category. This also applies during selection and paragraph/external-link visibility changes; adjusting `Spacing` scales these lengths together.
 * **Node Preview Sheet & N-hop Range**:
   * Selecting a node moves it to the center of the visible area above the bottom preview sheet without changing zoom. Dragging or zooming stops the automatic movement; the sheet lets you inspect details and set the related-node scope (N-hop).
   * The N-hop range offers `1`, `2`, and `All`.
@@ -266,6 +299,8 @@ Visualizes relationships among notes, boards, paragraphs, cards, and external li
   * The top toolbar toggles display their active state and item counts:
     * `Paragraphs (n)`: Shows or hides ordinary paragraph nodes. (Hidden by default; appears when ordinary paragraphs exist.)
     * `Ordinary External Links (n)`: Shows or hides external links without other relations. (Hidden by default; appears when external links exist.)
+    * When **Extracted Templates** is enabled for this notebook, the **Discovered templates** toggle with a document icon cycles **Whole-note structure → Whole notes + shared table forms → off**. It starts off; the caption shows the extraction criteria and template count, or `…` while calculating. Turning it off removes the added template nodes and relations. Ordinary paragraph and external-link options still work independently, and switching notebooks, accounts, privacy scopes, or disabling the extension resets template display.
+    * Each candidate becomes a light neutral **Template** node, sized like a board note and connected to its represented source documents by **Template source** relations. Multiple templates in the same flat similarity group share a dark neutral **Template group** node sized like a built-in category; single templates have no group node. Group membership uses the catalog's exact `2 / 3` threshold. Select a group to choose its templates, or a template to choose its source nodes in the detail sheet. Templates and groups have no document **move** action. Source files, YAML metadata and validation results remain unchanged.
 * **Legend & Validation Modal**:
   * The bottom legend displays currently shown node types (first row) and relation types (second row) with counts and can be expanded or collapsed.
   * On the canvas, the selected node is highlighted with an orange solid ring, hovered nodes with a blue solid ring, and violating nodes with a red dashed ring.
@@ -275,22 +310,6 @@ Visualizes relationships among notes, boards, paragraphs, cards, and external li
   * Notes with no content are normally omitted from the graph.
   * An existing empty note is retained as a structural skeletal Note instance only when directly referenced or used as an immediate parent by a non-empty note.
   * Board paragraphs sharing the same name within a board are unified into a single `BOARD_PARAGRAPH` instance across multiple column origins, and card headings are modeled solely as `CARD` instances without duplicating paragraph nodes.
-
-### 📊 Topic Dashboard
-
-**Topic boards** are virtual boards that automatically visualize your existing notes into Kanban and Scrum boards (columns and cards) based on child note paths and heading structures. Browse and organize cards across a board matrix without manually creating explicit board entities.
-
-* **Virtual Topic Boards from Candidates**:
-  * Maps direct child notes to columns and heading (`H2`–`H6`) paragraphs to cards to formulate optimal Kanban (`KANBAN`) or Scrum (`SCRUM`) board layouts.
-  * Groups top-level notes sharing common rows into virtual top-level boards (`Board(A, B, ...)`).
-* **Dashboard Metrics & View Switching**:
-  * Top KPI cards provide instant metrics for total topics, total cards, and Kanban/Scrum distribution.
-  * **Overview**: Browse topic boards using clean board item cards identical to the board list screen, complete with note and card metrics, and jump directly to any board summary.
-  * **Board Summary**: Displays detailed metadata, column chips, row tags, and card previews for the selected board, with quick access to open the full board view.
-  * **Board View**: Visualizes cards in a 2D Kanban or Scrum matrix; dragging a card to another column or row atomically updates the underlying markdown notes.
-* **Save as Board & Batch Move**:
-  * Path-based candidates can be saved as explicit, permanent boards using the `[Save as Board]` button.
-  * For top-level note topics without a common parent path, the `[Save as Board]` button opens the batch move screen (`TopicBatchMoveScreen`) to group child notes under the default board title (`Board(note titles,...)`) while simultaneously configuring board conversion (Kanban/Scrum) and creating the actual board entity.
 
 ### 📦 Archive (Backup and Restore)
 
