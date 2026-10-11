@@ -203,15 +203,16 @@ An environment where you can organize the app's features into distinct 'Notebook
 Use recurring headings and table layouts from similar notes in the current notebook to create a new note. This is useful for meeting minutes, work logs, and other notes that follow a common format.
 
 1. Enable **Extracted Templates** in **Extension Settings**, then open it from the home menu or sidebar.
-2. Choose a format under **Discovered templates**. Names show common headings, and similar formats appear together.
-3. Select the template or a source note in the left list to compare their contents. Expand a folder to see individual notes. Choose **Open note** to visit a source note.
-4. With the template selected, choose **New note** on the right. If **Title template** choices are available, select one and fill in its dates or keywords. Choose **✎** to enter a title directly. Enter a title directly when there are no title templates.
-5. Choose **Preview**, write the contents in the editor, and save. If a note with the same title already exists, use a different title.
+2. Choose a format under **Discovered templates**. Names show common headings, and similar formats appear together. The current step has a highlighted background in the top **Template list → Preview → New note** controls.
+3. The template preview appears first. Scroll the screen to read the full body, just as in a regular note. Choose the header's tree icon (**Similar notes**) to open the separate source list. Expand a folder and select a note to preview it. Choose the external-link icon (**Open note**) to visit the original, or return to the template using the first list item or the top **Preview** button.
+4. Choose the **＋** icon (**New note**) in the template preview header. If **Title template** choices are available, select one and fill in its dates or keywords. Choose **Enter title directly** to enter a title yourself. Enter a title directly when there are no title templates. Your inputs immediately update the resulting title and **Template preview**.
+5. Review the updated preview, then choose **save** below the form. If a note with the same title already exists, use a different title. The top **Preview** button preserves your entered fields when returning to the template. Use **Template list** to choose a different template.
 
 **Placeholders and extraction criteria**
 
-- `{{ Date }}` and `{{ Keyword }}` are placeholders to fill in for the new note. Complete all required title fields. Expand `{{ }} · number` to fill optional body fields, or write them in the preview editor. Empty body fields remain as placeholders.
+- `{{ Date }}` and `{{ Keyword }}` are placeholders to fill in for the new note. Complete fields marked with `*` in the upper **Title template** card, then write the body in the lower **Content template** card. Empty body fields remain as placeholders. After saving, you can open and edit the note as usual.
 - The folder path in a title template is where the new note will be saved. For example, filling the date in `Team meetings/{{ Date }} Weekly meeting` creates the note in that folder. Placeholders with the same name share your entered value across the title and body.
+- The note name and body title are separate. If the common source format has no body title, the new note's body does not get an automatically added title.
 - **Extraction criteria** is off by default and finds templates from whole-note formats. Turn it on to also find shared table layouts in notes with different overall formats. Try this if the format you want is missing. Change this setting from the **Template list** screen.
 
 If no templates appear, check that at least two notes have similar heading structures or table layouts. Individual source contents are not copied into the template, so review the new note before saving.
