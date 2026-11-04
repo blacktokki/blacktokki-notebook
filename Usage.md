@@ -229,10 +229,15 @@ Use recurring headings and table layouts from similar notes in the current noteb
 
 If no templates appear, check that at least two notes have similar heading structures or table layouts. Individual source contents are not copied into the template, so review the new note before saving.
 
-### ⚡ Quick Memo
-* A feature that allows you to immediately add sub-paragraphs by selecting a specific note and a parent paragraph.
-* Information about the most recently used note and paragraph is automatically saved, allowing for quick recording in the same location next time.
-* You can easily change the target (note and paragraph) by clicking the exchange icon at the top.
+### ⚡ Temporary Memo
+
+* Enable **Temporary Memo** in **Extension Settings**, then open it from the menu. Notes in the existing **Tab List** appear in the same order. Adding or closing note tabs updates both views.
+* Select **＋** beside the last tab to open a blank memo titled **Untitled**. When the right arrow appears, **＋** sits to its right. The tab title updates as you type and shows up to 35 characters from the first line of plain text. Until you save it, the draft is available only in Temporary Memo.
+* Saved note tabs show a **document icon and the note title**. A child note shows the name after the last `/`. Selecting a saved note tab updates the app's **Current Tab**.
+* **Drag a tab title left or right** to reorder it. If the tabs do not fit in one row, use the **‹ / ›** buttons on either side of the tabs. Saved notes share their order with the Tab List. The position of a new memo is saved in Temporary Memo.
+* Switching tabs preserves your edits. Drafts are saved with every edit to a separate browser database (IndexedDB), isolated by account, notebook, and private mode. Changes in previous paragraph drafts are merged into drafts of their whole notes.
+* A filled circle (**●**) at the far left of a tab marks unsaved changes. Select **×** to see the save prompt. Saving a new memo creates a note with the tab title and converts the open tab into a note tab. If a note with that title already exists, the first available number starting at **(1)** is appended. Saving changes to an existing note closes its tab.
+* Closing a tab removes it from the Tab List. Drafts of notes closed from the existing Tab List are restored when you add those notes again. Closing a tab does not delete the actual note.
 
 ### 🔍 Full-text Search
 
