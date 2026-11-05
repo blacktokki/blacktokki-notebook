@@ -68,7 +68,6 @@
 You can adjust the app's complexity and features across 3 levels according to your workflow and purpose.
 * **Header Dropdown Menu (Quick Switcher):** Click the app/notebook title in the top navigation header to open a dropdown popover, allowing you to quickly switch between registered notebooks, add a new notebook mode, return to note mode, or edit notebook settings.
 * **Config Menu:** You can also change the usage mode and manage notebooks in `Config > Note Settings > Mode Settings`. If no notebook mode has been created, selecting Notebook Mode will automatically open the modal to create a new notebook.
-* Creating a notebook from the header or mode settings automatically switches to that notebook after saving.
 * Refreshing in local mode restores the last selected usage mode and notebook. Deleted notebooks and locked private notebooks return to Note Mode.
 * Local notebook registrations and folder connections are saved in your browser. Existing registrations in `notebooks.json` are not imported automatically; register each notebook again by selecting the same local folder. Clearing the site's browser data removes these registrations while keeping the note files in your local folders.
 
@@ -203,41 +202,48 @@ An environment where you can organize the app's features into distinct 'Notebook
 
 ### 🧩 Extracted Templates
 
-Use recurring headings and table layouts from similar notes in the current notebook to create a new note. This is useful for meeting minutes, work logs, and other notes that follow a common format.
+Create meeting minutes, work logs and other notes from the common format of similar notes.
+
+**Create a note**
 
 1. Enable **Extracted Templates** in **Extension Settings**, then open it from the home menu or sidebar.
-2. Choose a format under **Discovered templates** to open its own screen. Names show common headings, and similar formats appear together. Templates are shown by source-note count in descending order; each group is ranked by its largest member source-note count. While the catalog is being calculated, the count shows `…`. The empty-list message appears only after calculation finishes with no templates. **Usage** appears at the top right of both the list and template screens.
-3. The template preview appears first. Scroll the screen to read the full body, just as in a regular note. Choose the header's list icon (**Similar notes**) to open the separate source list. The list and pencil icons remain at the top right in both views; choose the list icon again to return to the original preview. Expand a folder and select a note to open its actual note screen immediately. Go back to return to the similar-note list, or return to the template using the first list item.
-4. Choose the pencil icon (**New note**) in either the preview or similar-note list header. If you entered through a template tag on a note that has not been created yet, **Enter title directly** is selected and that note's full path and title are prefilled. You can edit the title if needed. Otherwise, if **Title template** choices are available, select one and fill in its dates or keywords. Choose **Enter title directly** to enter a title yourself. Enter a title directly when there are no title templates. The screen has **Title template** above a shared body area. Choose **Content template / Content preview** below to switch between the form and filled body. Switching preserves your field values and table rows and columns. The preview stays loaded when the content is unchanged and reflects your latest edits when it changes.
-5. Review **Content preview**, then choose **save** below it. The save button is also available in **Content template**. If a note with the same title already exists, use a different title. The document icon beside the template name returns to the template preview while preserving your entered fields. Choose **‹ Template list** at the top left to return to the template list and choose a different template. It mirrors the **Usage ›** button at the top right.
+2. Choose a format under **Discovered templates** and review its preview. To choose another format, use the **template icon** to the left of the title to return to the list.
+3. Choose the **pencil icon (New note)**. Select a **Title template** and fill in its dates or keywords, or choose **Enter title directly**.
+4. Fill in **Content template**. For tables with repeating items, use **＋ Table row / ＋ Table column** to add items and **×** to remove them.
+5. Check **Content preview**, then choose **save**. Choose **cancel** to return to the template preview without saving.
 
-**Placeholders and extraction criteria**
+If the save button is disabled, follow the message to complete required fields or change a duplicate title.
 
-- In the body tabs, the form icon opens **Content template** and the eye icon opens **Content preview**. An underline marks the selected tab. With a keyboard, press `Tab` to focus the tabs, then use `←` / `→` to switch.
-- When saving is unavailable, the reason and missing fields appear in place of **save**. Correct those fields to replace the explanation with the **save** button.
-- If the previously opened template information is unavailable, you return to the template list. Select the template again from the list.
-- `{{ Date }}` and `{{ Keyword }}` are placeholders to fill in for the new note. Complete fields marked with `*` in the upper **Title template** card, then write the body in the lower **Content template** card. Empty body fields remain as placeholders. After saving, you can open and edit the note as usual.
-- For tables with repeating rows or columns, use **＋ Table row / ＋ Table column** in **Content template** to add items, and **×** beside an item to remove it. You can also edit repeating column names in their fields. New numbered rows continue sequences such as `REQ-000`. Fixed instructions and labels stay in place. The preview and saved note both reflect your table layout and entered values.
-- The folder path in a title template is where the new note will be saved. For example, filling the date in `Team meetings/{{ Date }} Weekly meeting` creates the note in that folder. Placeholders with the same name share your entered value across the title and body.
-- The note name and body title are separate. If the common source format has no body title, the new note's body does not get an automatically added title.
-- When the extension is enabled, notes associated with a discovered whole-note template show a **template name tag** at the top, with the same appearance as the timeline's timer tags. The tag omits the folder prefix and shows up to 10 characters of the remaining template name; open the template to see its full name including the folder. New notes written in the same format are associated automatically. A note that has not been created yet also shows template tags when its parent path matches a similar-note group. For example, `Meetings/New note` shows templates associated with notes directly under `Meetings`. Select a tag to open that template's **Similar notes** list directly, then select a note to open its actual note screen. Go back to return to the previous screen. Tags show whole-note template associations even when viewing a paragraph, and are not saved in the note body.
-- Whole-note discovery also finds recurring documents in the same folder whose titles differ by dates, numbers or keywords, such as monthly reports. Their shared headings, fields and tables become a template even when optional sections differ. It also finds shared outlines in research notes and guides with different titles or folders when they share several key sections. Similar titles alone do not produce a template.
-- Section numbers and Korean spacing differences do not split otherwise matching forms. Fullwidth/halfwidth characters and emoji differences remain distinct. Standalone year and month labels, such as `2026년` or `2026-04`, become date placeholders instead of fixed historical values.
-- Template similarity recognizes shared table columns when columns are added or reordered. The common layout matters more than row-label differences, while headings and section relationships still distinguish formats. Templates are grouped only when every pair meets the two-thirds similarity threshold.
-- Fields separated by line breaks in the same paragraph or list item become separate placeholders. For example, `Owner: ...` and `State: ...` each get their own input; source values and diagram examples are excluded.
-- Templates are discovered from the common structure of whole notes, with tables included as part of each note format.
+`{{ Date }}` and `{{ Keyword }}` are placeholders. Fields with the same name share your input across the title and body. Empty body placeholders remain after saving. The folder path in the title determines where the new note is saved.
 
-If no templates appear, check that at least two notes have similar heading structures or table layouts. Individual source contents are not copied into the template, so review the new note before saving.
+**Browse existing notes**
+
+- Choose the **grid icon (Similar notes)** to see notes using the same format. Use the view icons to switch between **cards, Kanban and Scrum**.
+- In card view, select a group card to browse its subnotes, or a note card to open that note.
+- Select the parent path before the last `/` in the header to go up one group. From all groups, select the template name to open its preview.
+- In notebooks with board support, a group shares its view and heading level with the corresponding note. Changes in either place apply to both.
+- In Kanban and Scrum, use the **gear icon** to choose the heading level shown as cards. Select a column heading to open its note, select a card to open its paragraph, or double-click a card to edit.
+- Dragging a board card to another column or Scrum row **also moves the paragraph in the source notes**.
+
+Choose the **pencil icon (Edit)** on the similar notes screen to edit several notes together in a table. When opened within a group, the table shows only that group's notes and its subgroups' notes, with the group path in the screen title. You can also fill empty repeating-item cells. Changes apply when you choose **save**; **cancel** discards them and returns to the similar notes list in the same group.
+
+You can also open similar notes from the **template name tag** at the top of a note. When you use a tag on a note that does not exist yet to create a new note, its title is prefilled.
+
+Save a template screen’s URL to reopen it later. If it returns you to the list because the previous template is unavailable, select the format again.
+
+If no templates appear, check that at least two notes have similar heading structures or table layouts.
 
 ### ⚡ Temporary Memo
 
-* Enable **Temporary Memo** in **Extension Settings**, then open it from the menu. Notes in the existing **Tab List** appear in the same order. Adding or closing note tabs updates both views.
-* Select **＋** beside the last tab to open a blank memo titled **Untitled**. When the right arrow appears, **＋** sits to its right. The tab title updates as you type and shows up to 35 characters from the first line of plain text. Until you save it, the draft is available only in Temporary Memo.
-* Saved note tabs show a **document icon and the note title**. A child note shows the name after the last `/`. Selecting a saved note tab updates the app's **Current Tab**.
-* **Drag a tab title left or right** to reorder it. If the tabs do not fit in one row, use the **‹ / ›** buttons on either side of the tabs. Saved notes share their order with the Tab List. The position of a new memo is saved in Temporary Memo.
-* Switching tabs preserves your edits. Drafts are saved with every edit to a separate browser database (IndexedDB), isolated by account, notebook, and private mode. Changes in previous paragraph drafts are merged into drafts of their whole notes.
-* A filled circle (**●**) at the far left of a tab marks unsaved changes. Select **×** to see the save prompt. Saving a new memo creates a note with the tab title and converts the open tab into a note tab. If a note with that title already exists, the first available number starting at **(1)** is appended. Saving changes to an existing note closes its tab.
-* Closing a tab removes it from the Tab List. Drafts of notes closed from the existing Tab List are restored when you add those notes again. Closing a tab does not delete the actual note.
+* Enable **Temporary Memo** in **Extension Settings**, then open it from the menu. You can use notes from the existing **Tab List**, and selecting a note tab also updates the app's **Current Tab**.
+* Select **＋** to open a blank memo. Its first line becomes the tab title as you type.
+* Drag tabs left or right to reorder them. Use **‹ / ›** to reach tabs that do not fit on screen.
+* Drafts are automatically kept in the current browser, so you can switch tabs or return later and continue editing.
+* A **●** marks a tab with unsaved changes. Pause typing to reveal the **Save** button at the bottom-right of the editor; it hides when you resume typing.
+* Select **Save** to save the current tab to its note and continue editing. A brief confirmation appears on the button after saving.
+* Saving a new memo creates a note with the tab title and lets you continue editing. A number is added if that title is already in use.
+* Saving an existing note overwrites it with your edits. You can also select **×** to choose whether to save changes when closing a tab.
+* Closing a tab also removes it from the Tab List, but does not delete the note itself.
 
 ### 🔍 Full-text Search
 
