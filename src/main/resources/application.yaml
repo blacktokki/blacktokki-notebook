@@ -42,11 +42,4 @@ spring:
       load-on-startup: 1
     pathmatch:
       matching-strategy: ant_path_matcher
-eureka:
-  instance:
-    hostname: localhost
-  client:
-    register-with-eureka: 'true'
-    fetch-registry: 'true'
-  # cloud.gcp.storage.credentials.location: classpath:virtual-metrics-355712-e207b739a975.json
 server.port: 8081
